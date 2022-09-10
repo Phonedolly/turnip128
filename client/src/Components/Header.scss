@@ -1,0 +1,125 @@
+@import url("./Font.scss");
+@import url("./Variable.scss");
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 2.3em;
+  z-index: 999;
+
+  background-color: rgba(255, 255, 255, 0.7);
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(13, 17, 23, 0.8);
+  }
+
+  font-size: 1.7em;
+
+  @media (min-width: 480px) {
+    font-size: 2em;
+    height: 2.4em;
+  }
+
+  @media (min-width: 768px) {
+    // font-size: 3em;
+    height: 2.5em;
+  }
+
+  @media (min-width: 1024px) {
+  }
+  @media (min-width: 1200px) {
+  }
+  @media (min-width: 1850px) {
+  }
+
+  .header-content {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+    align-items: center;
+    width: 90vw;
+
+    @media (min-width: 480px) {
+      font-size: 0.9em;
+    }
+    @media (min-width: 768px) {
+      font-size: 1.1em;
+    }
+
+    @media (min-width: 1024px) {
+      max-width: 60rem;
+    }
+    @media (min-width: 1200px) {
+      max-width: 61rem;
+    }
+    @media (min-width: 1850px) {
+      max-width: var(--header-width);
+    }
+
+    .header-link {
+      text-decoration-line: none;
+    }
+    .icon {
+      // margin: 0.5em auto;
+
+      .headerText {
+        font-family: "Spoqa Han Sans Neo";
+        font-weight: bold;
+        color: black;
+        @media (prefers-color-scheme: dark) {
+          color: white;
+        }
+      }
+      .underLine {
+        width: 0.4em;
+        height: 0.4em;
+        background-color: red;
+      }
+    }
+    .menu-icons {
+    }
+    .menu-icon {
+      height: 2.5em;
+      width: 2.5em;
+      border: none;
+      // margin: 1em;
+      background-size: cover;
+      background-color: transparent;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      /* image credit:
+      https://fonts.google.com/icons?icon.query=search&icon.set=Material+Icons
+      */
+      background-image: url("../Images/search_black_24dp.svg");
+      @media (prefers-color-scheme: dark) {
+        background-image: url("../Images/search_white_24dp.svg");
+      }
+    }
+
+    .info-icon {
+      /* image credit:
+      https://fonts.google.com/icons?icon.query=search&icon.set=Material+Icons
+      */
+      background-image: url("../Images/info_black_24dp.svg");
+      @media (prefers-color-scheme: dark) {
+        background-image: url("../Images/info_white_24dp.svg");
+      }
+    }
+    .search-icon {
+      /* image credit:
+      https://fonts.google.com/icons?icon.query=search&icon.set=Material+Icons
+      */
+      background-image: url("../Images/search_black_24dp.svg");
+      @media (prefers-color-scheme: dark) {
+        background-image: url("../Images/search_white_24dp.svg");
+      }
+    }
+  }
+}
+
+.scroll {
+  position: sticky;
+  top: 0;
+  backdrop-filter: saturate(180%) blur(20px);
+}

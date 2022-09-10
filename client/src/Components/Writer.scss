@@ -1,0 +1,95 @@
+@import url("./Color.scss");
+.writer-container {
+  width: 90%;
+  margin: 0 auto;
+  // margin: 1em;
+}
+.inputMdArea {
+  width: 90%;
+  border: none;
+  padding: 1em;
+  border-radius: 7px;
+  background-color: var(--gray-300);
+  resize: none;
+  margin-top: 1em;
+  margin-right: 1em;
+  font-size: 16px;
+  font-family: "Cascadia Mono", "맑은 고딕", monospace;
+  line-height: 1.5;
+}
+
+.writer-button {
+  width: 8em;
+  margin: 1em;
+  height: 3em;
+  font-size: 1em;
+  border: none;
+  border-radius: 7px;
+  background-color: var(--gray-600);
+}
+.writer-button:hover {
+  background: var(--gray-400);
+}
+
+.small-text {
+  width: 10em;
+  font-size: 0.9em;
+  align-self: center;
+}
+
+.inputMdArea:focus,
+.writer-input:focus {
+  outline: none;
+}
+
+.showTextArea {
+  width: 90%;
+  margin-top: 1em;
+  margin-left: 1em;
+}
+
+.imageGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.uploadedImageBox {
+  background-color: var(--gray-300);
+  margin: 0.3em;
+  border-radius: 10px;
+  padding: 1em;
+  width: 10em;
+}
+.uploadedImageBox > pre {
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+.uploadedImage {
+  width: 10em;
+  height: 10em;
+  margin: 0 auto;
+  overflow: hidden;
+  background-position: center;
+  object-fit: cover;
+}
+
+.inputAndMd {
+  width: 100%;
+  display: grid;
+  margin: 0;
+  column-gap: 0;
+  grid-template-columns: 1fr;
+  @media (min-width: 480px) {
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: 50% 50%;
+  }
+
+  @media (min-width: 1024px) {
+  }
+  @media (min-width: 1200px) {
+  }
+  @media (min-width: 1850px) {
+  }
+}

@@ -1,0 +1,33 @@
+/*!-------------------------------------------*\
+  CSS Custom Properties - start
+\*-------------------------------------------*/
+:root {
+  --primary: #ff0055;
+  --primary-active: #e5004c;
+  --primary-grad2: #ff4133;
+  --grad2-active: #e53a2e;
+  --primary-grad3: #ff7633;
+  --grad3-active: #e56a2e;
+  --primary-d: #ff1a66;
+  --primary-grad2-d: #ff5448;
+  --primary-grad3-d: #ff8448;
+  --danger: #f00;
+  --danger-active: #e50000;
+  --body-bg: #fff;
+  --body-color: #000;
+  /*--body-bg-d: #161a1c;*/
+  --body-bg-d: #0a0c0d;
+  --ad-bg: #b4c6cc;
+  --gray-200: #f8fbfc;
+  --gray-300: #edf3f5;
+  --gray-400: #e1eaed;
+  --gray-500: #d5e1e5;
+  --gray-600: #b4c6cc;
+  --gray-800: #91a8b0;
+  --gray-850: #869ea6;
+  --gray-875: #758e96;
+  --gray-900: #688189;
+  --font-sans-serif: Inter, sans-serif;
+  --font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}

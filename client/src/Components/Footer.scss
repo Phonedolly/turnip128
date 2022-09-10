@@ -1,0 +1,10 @@
+@import url("./Font.scss");
+
+.footer {
+  font-family: "Spoqa Han Sans Neo";
+  text-align: center;
+  padding: 3em;
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
+}

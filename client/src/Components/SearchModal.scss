@@ -1,0 +1,91 @@
+@import url("./Variable.scss");
+@import url("./Color.scss");
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+.modal > section {
+  margin: auto 10em;
+  max-width: var(--document-width-desktop);
+
+  background-color: var(--gray-200);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 16px 0px;
+  border-radius: 10px;
+  padding: 2em;
+  padding: 2em;
+  @media (prefers-color-scheme: dark) {
+    background-color: #c9d1d9;
+  }
+}
+
+.modal > section > header {
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: bold;
+  font-size: large;
+}
+.modal > section {
+  font-family: "Spoqa Han Sans Neo";
+  display: flex;
+  flex-direction: column;
+}
+
+.modal > section > .search-result-list {
+  max-height: 50vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.search-item {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--gray-300);
+  border-radius: 10px;
+  padding: 0.5em 1em;
+  margin: 1.1em 1.2em;
+  list-style: none;
+  font-weight: bold;
+  align-items: center;
+
+  cursor: pointer;
+  p {
+    padding-left: 1em;
+  }
+  img {
+    height: 4em;
+    width: 7em;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}
+
+.modal > section > button {
+  font-family: "Spoqa Han Sans Neo";
+  margin-top: 1.5em;
+  padding: 0.5em 1em 0.5em 1em;
+  font-size: 1em;
+  align-self: flex-end;
+  border: none;
+  border-radius: 10px;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #30363d;
+    color: white;
+  }
+}
+
+.modal > section > button:hover {
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--gray-900);
+  }
+}

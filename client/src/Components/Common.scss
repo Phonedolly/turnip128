@@ -1,0 +1,32 @@
+.common-button {
+  margin-top: 1.5em;
+  padding: 1em 2em 1em 2em;
+  font-size: 1em;
+  align-self: center;
+  border: none;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 4px 0px;
+  cursor: pointer;
+  @media (prefers-color-scheme: dark) {
+    background-color: #30363d;
+    color: white;
+  }
+}
+.common-button:hover {
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--gray-900);
+  }
+}
+
+.common-input {
+  height: 3em;
+  font-size: 1em;
+  border: none;
+  padding: 0 1em;
+
+  border-radius: 7px;
+  background-color: var(--gray-300);
+  resize: none;
+  margin-top: 1em;
+  // margin-right: 1em;
+}

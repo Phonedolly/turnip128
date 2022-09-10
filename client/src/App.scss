@@ -1,0 +1,40 @@
+@import url("./Components/Font.scss");
+@import url("./Components/Color.scss");
+@import url("./Components/Variable.scss");
+
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgb(133, 133, 133);
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #c2c2c263; /*스크롤바 뒷 배경 색상*/
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: rgb(160, 160, 160);
+}
+
+body {
+  @media (prefers-color-scheme: dark) {
+    background-color: #0d1117;
+  }
+}
+
+.App {
+  width: 100%;
+  @media (prefers-color-scheme: dark) {
+    background-color: #0d1117;
+  }
+}
+.container {
+  margin: 0 auto;
+
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
