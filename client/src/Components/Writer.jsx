@@ -98,8 +98,8 @@ export default function Writer(props) {
     }
 
     async function getCategories() {
-      console.log((await axios.get("/api/getCategories")).data.categories);
-      const data = (await axios.get("/api/getCategories")).data.categories;
+      const data = (await axios.get("/api/category/getCategories")).data
+        .categories;
       setCategories(() => data);
     }
 
@@ -314,7 +314,7 @@ export default function Writer(props) {
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
-              {categories.map((eachCategory) => (
+              {categories?.map((eachCategory) => (
                 <option key={eachCategory._id} value={eachCategory._id}>
                   {eachCategory.name}
                 </option>
