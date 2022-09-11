@@ -73,21 +73,40 @@ router.get('/getSitemap/more/:moreIndex', async (req, res) => {
 
 
 router.get('/getCategories', async (req, res) => {
-  const categories = await Category.find({})
+  const categories = await Category.find({}).sort({ index: 1 })
 
   res.send({ categories })
 })
 
 router.post('/createCategory', async (req, res) => {
   const isDuplicated = !!(await Category.findOne({ name: req.body.name }));
-  console.log(isDuplicated)
   if (isDuplicated) {
     return res.status(500).send({ result: "Duplicated Category Name!" })
   }
-  const result = await Category.create({ name: req.body.name });
+  const categoryLength = (await Category.find({})).length;
+  const result = await Category.create({ name: req.body.name, index: categoryLength });
 
-  console.log(result);
   res.send({ result });
+})
+
+router.post('/updateCategories', async (req, res) => {
+  /* 임시로 인덱스 변경 */
+  const categoryLength = (await Category.find({})).length;
+  req.body.map(async (eachCategory, plus) => {
+    await Category.updateOne({ _id: eachCategory._id }, {
+      name: eachCategory.name,
+      index: categoryLength + plus
+    })
+  })
+
+  /* 인덱스 정상화 */
+  req.body.map(async (eachCategory) => {
+    await Category.updateOne({ _id: eachCategory._id }, {
+      index: eachCategory.index
+    })
+  })
+
+  res.send("category updated");
 })
 
 router.post('/search', async (req, res) => {

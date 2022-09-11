@@ -6,6 +6,7 @@ import { Login } from "./Login";
 import Writer from "./Writer";
 
 import { AnimatePresence } from "framer-motion";
+import Manage from "./Manage";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -17,6 +18,7 @@ function AnimatedRoutes() {
         <Route path="/post/:postURL" element={<Art />}></Route>
         <Route path="/post/:postURL/edit" element={<Writer isEdit={true} />} />
         <Route path="/writer" element={<Writer />}></Route>
+        <Route path="/manage" element={<Manage />}></Route>
       </Routes>
     </AnimatePresence>
   );

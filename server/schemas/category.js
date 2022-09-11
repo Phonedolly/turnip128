@@ -7,6 +7,11 @@ const categorySchema = new Schema({
         required: true,
         unique: true
     },
+    index: {
+        type: Number,
+        required: true,
+        unique: true,
+    },
     createdAt: {
         type: Date,
         default: Date.now

@@ -47,20 +47,6 @@
 }
 
 .search-item {
-  display: flex;
-  flex-direction: row;
-  background-color: var(--gray-300);
-  border-radius: 10px;
-  padding: 0.5em 1em;
-  margin: 1.1em 1.2em;
-  list-style: none;
-  font-weight: bold;
-  align-items: center;
-
-  cursor: pointer;
-  p {
-    padding-left: 1em;
-  }
   img {
     height: 4em;
     width: 7em;

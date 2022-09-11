@@ -77,7 +77,7 @@ export default function SearchModal({ isModalOpen, closeModal }) {
                           opacity: 0,
                         }}
                         animate={{ y: "0", opacity: 1 }}
-                        className="search-item"
+                        className="common-list-item search-item"
                         onClick={() => {
                           setIsAvailable(false);
                           setInputText("");
