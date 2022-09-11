@@ -54,7 +54,10 @@ export default function Writer(props) {
           setTitle(res.data.title);
           setNewTitle(res.data.title);
           setMd(res.data.content);
-          setSelectedCategory(res.data.category);
+          console.log(categories);
+          if (res.data.category) {
+            setSelectedCategory(res.data.category);
+          }
           setThumbURL(() => res.data.thumbnailURL);
 
           res.data.images?.forEach((eachImage) => {
@@ -100,7 +103,8 @@ export default function Writer(props) {
     async function getCategories() {
       const data = (await axios.get("/api/category/getCategories")).data
         .categories;
-      setCategories(() => data);
+      setCategories(data);
+      setSelectedCategory(data[0]._id);
     }
 
     setLoginInfo();
@@ -311,8 +315,10 @@ export default function Writer(props) {
               임시 데이터<br></br>지우기
             </button>
             <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setSelectedCategory(e.target.value);
+              }}
             >
               {categories?.map((eachCategory) => (
                 <option key={eachCategory._id} value={eachCategory._id}>
