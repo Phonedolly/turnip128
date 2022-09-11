@@ -15,6 +15,8 @@ import CommonButton from "./CommonButton";
 export default function Art() {
   const [isLoggedIn, setLoggedIn] = useState("PENDING");
   const [md, setMd] = useState(null);
+  const [bgImageURL, setBgImageURL] = useState("");
+  const [title, setTitle] = useState("");
   const params = useParams();
   const navigate = useNavigate();
 
@@ -23,6 +25,8 @@ export default function Art() {
       axios.get("/api/post/" + params.postURL).then(
         (res) => {
           setTimeout(() => {
+            setBgImageURL(res.data.thumbnailURL);
+            setTitle(res.data.title);
             setMd(res.data.content);
             setTimeout(() => {
               window.scroll({ top: 0 });
@@ -52,7 +56,6 @@ export default function Art() {
     return (
       <>
         <motion.div
-          className="common-container"
           initial={{ y: window.innerHeight / 2, opacity: 0 }}
           animate={{ y: "0", opacity: 1 }}
           exit={{
@@ -60,7 +63,12 @@ export default function Art() {
             opacity: 0,
           }}
         >
-          <Markdown md={md} />
+          <div className="common-container">
+            <div className="art-hero">
+              <h1>{title}</h1>
+            </div>
+            <Markdown md={md} />
+          </div>
           {isLoggedIn === "YES" && (
             <CommonButton
               onClick={() => {

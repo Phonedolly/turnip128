@@ -86,7 +86,12 @@ export default function Curator() {
         </div>
         {canMoreSitemap && (
           <Flex column>
-            <CommonButton onClick={handleMorePosts}>더보기</CommonButton>
+            <CommonButton
+              onClick={handleMorePosts}
+              style={{ marginTop: "2em" }}
+            >
+              더보기
+            </CommonButton>
           </Flex>
         )}
       </>
