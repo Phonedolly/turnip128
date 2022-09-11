@@ -9,13 +9,15 @@ import CommonButton from "./CommonButton";
 export default function Curator() {
   const [sitemap, setSitemap] = useState([]);
   const [moreSitemapCount, setMoreSitemapCount] = useState(0);
-  const [canMoreSitemap, setCanMoreSitemap] = useState(true);
+  const [canLoadMoreSitemap, setCanLoadMoreSitemap] = useState(true);
   const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
     if (!fetched) {
       axios.get("/api/getSitemap").then((res) => {
-        setSitemap(res.data);
+        console.log(res.data);
+        setSitemap(res.data.sitemap);
+        setCanLoadMoreSitemap(res.data.canLoadMoreSitemap);
         setTimeout(() => {
           setFetched(true);
         }, 600);
@@ -33,6 +35,21 @@ export default function Curator() {
     }
   }, [fetched]);
 
+  useEffect(() => {
+    if (!fetched) {
+      return;
+    }
+    window.scroll({
+      top: 0,
+    });
+    axios.get(`/api/getSitemap/more/${moreSitemapCount}`).then((res) => {
+      console.log(res.data);
+      const newPosts = res.data.sitemap;
+      setSitemap(newPosts);
+      setCanLoadMoreSitemap(res.data.canLoadMoreSitemap);
+    });
+  }, [moreSitemapCount]);
+
   /* Scroll Restoration */
   /* Source: https://stackoverflow.com/questions/71292957/react-router-v6-preserve-scroll-position */
   useEffect(() => {
@@ -46,27 +63,6 @@ export default function Curator() {
 
     return () => document.removeEventListener("scroll", save);
   }, []);
-
-  const handleMorePosts = () => {
-    if (!canMoreSitemap) {
-      return;
-    }
-    axios.get("/api/getSitemap/more/" + moreSitemapCount).then(
-      (res) => {
-        const morePosts = res.data.morePosts;
-        setMoreSitemapCount(() => moreSitemapCount + 1);
-        setSitemap((prev) => {
-          return prev.concat(morePosts);
-        });
-        if (res.data.canMoreSitemap === false) {
-          setCanMoreSitemap(() => false);
-        }
-      },
-      () => {
-        alert("데이터 로드 실패");
-      }
-    );
-  };
 
   if (fetched) {
     return (
@@ -84,15 +80,25 @@ export default function Curator() {
             );
           })}
         </div>
-        {canMoreSitemap && (
-          <Flex column>
-            <CommonButton
-              onClick={handleMorePosts}
-              style={{ marginTop: "2em" }}
-            >
-              더보기
-            </CommonButton>
-          </Flex>
+        {(canLoadMoreSitemap || moreSitemapCount) && (
+          <div className="buttom-navigator">
+            {moreSitemapCount > 0 && (
+              <CommonButton
+                style={{ marginTop: "2em" }}
+                onClick={() => setMoreSitemapCount((prev) => prev - 1)}
+              >
+                이전
+              </CommonButton>
+            )}
+            {canLoadMoreSitemap && (
+              <CommonButton
+                onClick={() => setMoreSitemapCount((prev) => prev + 1)}
+                style={{ marginTop: "2em" }}
+              >
+                다음
+              </CommonButton>
+            )}
+          </div>
         )}
       </>
     );

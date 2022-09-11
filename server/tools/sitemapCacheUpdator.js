@@ -3,10 +3,11 @@ const { redisClient, now } = require('../server')
 const postTimeAlignmentor = require('./postTimeAlilgnmentor')
 
 const Post = require('../schemas/post')
+const checkCanLoadMore = require('./checkCanLoadMore')
 
 const runner = () => {
   Post.find({}).sort({ "_id": -1 }).limit(20)
-    .then((result) => {
+    .then(async (result) => {
       /* UTC(mongodb) to local time */
       const timeAlignedResult = postTimeAlignmentor(result)
 
@@ -28,6 +29,9 @@ const runner = () => {
             console.error(now() + 'multiError');
             console.error(multiError)
           })
+
+      /* 더 로드할 수 있는가를 조사 */
+      redisClient.set("sitemapCacheCanLoadMore", (await checkCanLoadMore(0)).toString())
 
       if (process.env.NODE_ENV === 'dev') {
         console.log(now() + "sitemapCache updated");

@@ -6,10 +6,12 @@ const auth = require('./auth');
 const createdPost = require('./publish');
 const category = require('./category');
 
-const postTimeAlignmentor = require('../tools/postTimeAlilgnmentor')
-const sitemapCacheUpdator = require('../tools/sitemapCacheUpdator')
+const postTimeAlignmentor = require('../tools/postTimeAlilgnmentor');
+const sitemapCacheUpdator = require('../tools/sitemapCacheUpdator');
+const checkCanLoadMore = require('../tools/checkCanLoadMore');
 
 const Post = require('../schemas/post');
+
 
 router.use('/auth', auth)
 router.use('/publish', createdPost)
@@ -21,25 +23,34 @@ router.get('/', (req, res) => {
 
 router.get('/getSitemap', async (req, res) => {
   /* redis에서 캐시가 있는지 확인 */
-  const cache = await redisClient.lRange('sitemapCache', 0, -1)
-  if (cache?.length !== 0) {
+  const cache = await redisClient.lRange('sitemapCache', 0, -1);
+  const canLoadMoreSitemap = (await redisClient.get("sitemapCacheCanLoadMore")) === "true" ? true : false;
+  redisClient.get("sitemapCacheCanLoadMore").then((res) => console.log(res))
+  if (cache) {
     if (process.env.NODE_ENV === 'dev') {
       console.log("Use Cache to getSitemap");
     }
-    return res.send(cache.map((each) => {
-      const eachParsed = JSON.parse(each)
-      return Object.assign({}, { title: eachParsed.title, thumbnailURL: eachParsed.thumbnailURL ?? null, postURL: eachParsed.postURL, postDate: eachParsed.postDate })
-    }))
+
+    return res.send({
+      sitemap: cache.map((each) => {
+        const eachParsed = JSON.parse(each)
+        return Object.assign({}, { title: eachParsed.title, thumbnailURL: eachParsed.thumbnailURL ?? null, postURL: eachParsed.postURL, postDate: eachParsed.postDate })
+      }),
+      canLoadMoreSitemap
+    })
   }
 
-  console.log('캐시 가져오기 실패')
-  console.log("Not use Cache to getSitemap")
+  console.log(now() + '캐시 가져오기 실패')
+  console.log(now() + "Not use Cache to getSitemap")
   Post.find({}).sort({ "_id": -1 }).limit(20)
     .then((result) => {
-      /* UTC(mongodb) to local time */
-      timeAlignedResult = postTimeAlignmentor(result)
+      /* 포스트를 20개 외에 더 로드할 수 있는지 확인 */
+      const canLoadMoreSitemap = checkCanLoadMore(0);
 
-      res.send(timeAlignedResult)
+      /* UTC(mongodb) to local time */
+      timeAlignedResult = postTimeAlignmentor(result);
+
+      res.send({ sitemap: timeAlignedResult, canLoadMoreSitemap });
 
       sitemapCacheUpdator(true)
 
@@ -52,19 +63,13 @@ router.get('/getSitemap', async (req, res) => {
 
 router.get('/getSitemap/more/:moreIndex', async (req, res) => {
   const moreIndex = req.params.moreIndex;
+  Post.find({}).sort({ '_id': -1 }).skip(20 * moreIndex).limit(20)
+    .then(async (result) => {
+      let canLoadMoreSitemap = await checkCanLoadMore(moreIndex);
 
-  /* 최신 순으로 한 요청당 20개씩. 20개 이상이 더 존재하는지 확인하기 위해 21개 조회 */
-  Post.find({}).sort({ '_id': -1 }).skip(20 * (moreIndex + 1)).limit(21)
-    .then((result) => {
-      let canMoreSitemap = true;
-      if (result.length <= 20) {
-        canMoreSitemap = false;
-        timeAlignedResult = postTimeAlignmentor(result)
-      }
-      else {
-        timeAlignedResult = postTimeAlignmentor(result.slice(0, 19))
-      }
-      return res.send({ canMoreSitemap, morePosts: timeAlignedResult })
+      const timeAlignedResult = postTimeAlignmentor(result)
+
+      return res.send({ sitemap: timeAlignedResult, canLoadMoreSitemap })
 
     }, (err) => {
       console.error(err);
