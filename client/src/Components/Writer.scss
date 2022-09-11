@@ -1,9 +1,8 @@
 @import url("./Color.scss");
 .writer-container {
-  width: 90%;
-  margin: 0 auto;
-  // margin: 1em;
+  margin: 1em 5vw;
 }
+
 .inputMdArea {
   width: 90%;
   border: none;
@@ -13,8 +12,10 @@
   resize: none;
   margin-top: 1em;
   margin-right: 1em;
-  font-size: 16px;
-  font-family: "Cascadia Mono", "맑은 고딕", monospace;
+  font-size: 1.1em;
+  font-family: "Cascadia Mono", "Spoqa Han Sans Neo", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.5;
 }
 
@@ -52,6 +53,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+
 .uploadedImageBox {
   background-color: var(--gray-300);
   margin: 0.3em;
@@ -83,7 +85,7 @@
   }
 
   @media (min-width: 768px) {
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 1fr 1fr;
   }
 
   @media (min-width: 1024px) {
