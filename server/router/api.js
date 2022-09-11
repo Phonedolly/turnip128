@@ -2,16 +2,18 @@ const express = require('express')
 const router = express.Router();
 const { redisClient, now } = require('../server')
 
-const auth = require('./auth')
-const createdPost = require('./publish')
+const auth = require('./auth');
+const createdPost = require('./publish');
+const category = require('./category');
+
 const postTimeAlignmentor = require('../tools/postTimeAlilgnmentor')
 const sitemapCacheUpdator = require('../tools/sitemapCacheUpdator')
 
 const Post = require('../schemas/post');
-const Category = require('../schemas/category');
 
 router.use('/auth', auth)
 router.use('/publish', createdPost)
+router.use('/category', category);
 
 router.get('/', (req, res) => {
   res.send({ test: 'hi' })
@@ -70,44 +72,6 @@ router.get('/getSitemap/more/:moreIndex', async (req, res) => {
       return res.status(500).send();
     })
 });
-
-
-router.get('/getCategories', async (req, res) => {
-  const categories = await Category.find({}).sort({ index: 1 })
-
-  res.send({ categories })
-})
-
-router.post('/createCategory', async (req, res) => {
-  const isDuplicated = !!(await Category.findOne({ name: req.body.name }));
-  if (isDuplicated) {
-    return res.status(500).send({ result: "Duplicated Category Name!" })
-  }
-  const categoryLength = (await Category.find({})).length;
-  const result = await Category.create({ name: req.body.name, index: categoryLength });
-
-  res.send({ result });
-})
-
-router.post('/updateCategories', async (req, res) => {
-  /* 임시로 인덱스 변경 */
-  const categoryLength = (await Category.find({})).length;
-  req.body.map(async (eachCategory, plus) => {
-    await Category.updateOne({ _id: eachCategory._id }, {
-      name: eachCategory.name,
-      index: categoryLength + plus
-    })
-  })
-
-  /* 인덱스 정상화 */
-  req.body.map(async (eachCategory) => {
-    await Category.updateOne({ _id: eachCategory._id }, {
-      index: eachCategory.index
-    })
-  })
-
-  res.send("category updated");
-})
 
 router.post('/search', async (req, res) => {
   const query = req.body.query;

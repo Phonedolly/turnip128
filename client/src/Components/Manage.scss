@@ -1,0 +1,28 @@
+@import "./Color.scss";
+
+.manage-tab {
+  font-size: 1.5em;
+  text-decoration: none;
+  color: black;
+  padding: 0.5em;
+  border-radius: 10px;
+  background-color: var(--gray-300);
+}
+
+.left {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding-right: 0.7em;
+}
+
+.middle {
+  border-radius: 0px;
+  padding-left: 0.7em;
+  padding-right: 0.7em;
+}
+
+.right {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  padding-left: 0.7em;
+}

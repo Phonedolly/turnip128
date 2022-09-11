@@ -52,7 +52,7 @@ export default function Art() {
     return (
       <>
         <motion.div
-          className="markdown-container"
+          className="common-container"
           initial={{ y: window.innerHeight / 2, opacity: 0 }}
           animate={{ y: "0", opacity: 1 }}
           exit={{

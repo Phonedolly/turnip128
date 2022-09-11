@@ -18,7 +18,7 @@ function AnimatedRoutes() {
         <Route path="/post/:postURL" element={<Art />}></Route>
         <Route path="/post/:postURL/edit" element={<Writer isEdit={true} />} />
         <Route path="/writer" element={<Writer />}></Route>
-        <Route path="/manage" element={<Manage />}></Route>
+        <Route path="/manage/*" element={<Manage />}></Route>
       </Routes>
     </AnimatePresence>
   );
