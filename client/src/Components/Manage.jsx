@@ -40,7 +40,7 @@ export default function Manage(props) {
   }
   return (
     <>
-      <div className="common-container">
+      <div className="common-container manage-container">
         <h1>Management</h1>
 
         <motion.a

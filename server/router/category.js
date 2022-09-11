@@ -18,7 +18,7 @@ router.post('/createCategory', async (req, res) => {
     const categoryLength = (await Category.find({})).length;
     const result = await Category.create({ name: req.body.name, index: categoryLength });
 
-    res.send({ result });
+    res.send({ successfullyCreateCategory: true });
 })
 
 router.post('/updateCategories', async (req, res) => {

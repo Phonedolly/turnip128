@@ -1,5 +1,36 @@
+.manage-category-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5em;
+}
+
+.manage-category-upper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5em 1em;
+  margin: 1.1em 0;
+  font-size: 1.1em;
+}
+
+.create-category-resource {
+  column-gap: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+}
+
 .category-item {
   justify-content: space-between;
+}
+
+.categories {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.create-category-button {
 }
 
 .delete-category-button {
