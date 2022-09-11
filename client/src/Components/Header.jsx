@@ -6,8 +6,20 @@ import "./Header.scss";
 
 export default function Header(props) {
   const location = useLocation();
+  let headerClassName;
+
+  if (location.pathname === "/") {
+    headerClassName = "header scroll";
+  } else if (
+    location.pathname.endsWith("/edit") &&
+    location.pathname.split("/").length === 4
+  ) {
+    headerClassName = "header not-visible-header";
+  } else {
+    headerClassName = "header";
+  }
   return (
-    <div className={location.pathname === "/" ? "header scroll" : "header"}>
+    <div className={headerClassName}>
       <div className="header-content">
         <Link to="/" className="header-link">
           <Flex flexDirection="row" justifyContent="start" className="icon">
