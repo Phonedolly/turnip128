@@ -22,7 +22,7 @@ export default function Header(props) {
             }}
           >
             <Flex flexDirection="row" justifyContent="start" className="icon">
-              <div className="headerText">Stardue64</div>
+              <div className="headerText">Stardue128</div>
               <div className="underLine" />
             </Flex>
           </motion.div>
