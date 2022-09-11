@@ -24,6 +24,8 @@ export default function Writer(props) {
   const [thumbURL, setThumbURL] = useState("");
   const [md, setMd] = useState("");
   const [images, setImages] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const navigate = useNavigate();
   const params = useParams();
   useEffect(() => {
@@ -52,6 +54,7 @@ export default function Writer(props) {
           setTitle(res.data.title);
           setNewTitle(res.data.title);
           setMd(res.data.content);
+          setSelectedCategory(res.data.category);
           setThumbURL(() => res.data.thumbnailURL);
 
           res.data.images?.forEach((eachImage) => {
@@ -94,7 +97,14 @@ export default function Writer(props) {
       );
     }
 
+    async function getCategories() {
+      console.log((await axios.get("/api/getCategories")).data.categories);
+      const data = (await axios.get("/api/getCategories")).data.categories;
+      setCategories(() => data);
+    }
+
     setLoginInfo();
+    getCategories();
     if (params.postURL) {
       getMd();
     }
@@ -199,6 +209,7 @@ export default function Writer(props) {
         thumbnailURL: thumbURL,
         imageWhitelist: imageWhitelist,
         imageBlacklist: imageBlacklist,
+        category: selectedCategory,
       })
       .then(
         (res) => {
@@ -207,7 +218,7 @@ export default function Writer(props) {
         },
         (err) => {
           console.error(err);
-          console.error("ERROR");
+          console.error("Post Upload Error");
         }
       );
   };
@@ -299,6 +310,16 @@ export default function Writer(props) {
             >
               임시 데이터<br></br>지우기
             </button>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              {categories.map((eachCategory) => (
+                <option key={eachCategory._id} value={eachCategory._id}>
+                  {eachCategory.name}
+                </option>
+              ))}
+            </select>
             <button onClick={handleUpload} className="writer-button">
               업로드
             </button>

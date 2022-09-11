@@ -8,6 +8,7 @@ const postTimeAlignmentor = require('../tools/postTimeAlilgnmentor')
 const sitemapCacheUpdator = require('../tools/sitemapCacheUpdator')
 
 const Post = require('../schemas/post');
+const Category = require('../schemas/category');
 
 router.use('/auth', auth)
 router.use('/publish', createdPost)
@@ -69,6 +70,25 @@ router.get('/getSitemap/more/:moreIndex', async (req, res) => {
       return res.status(500).send();
     })
 });
+
+
+router.get('/getCategories', async (req, res) => {
+  const categories = await Category.find({})
+
+  res.send({ categories })
+})
+
+router.post('/createCategory', async (req, res) => {
+  const isDuplicated = !!(await Category.findOne({ name: req.body.name }));
+  console.log(isDuplicated)
+  if (isDuplicated) {
+    return res.status(500).send({ result: "Duplicated Category Name!" })
+  }
+  const result = await Category.create({ name: req.body.name });
+
+  console.log(result);
+  res.send({ result });
+})
 
 router.post('/search', async (req, res) => {
   const query = req.body.query;

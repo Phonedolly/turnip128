@@ -34,6 +34,11 @@ const postSchema = new Schema({
     editedAt: {
         type: Date,
         default: Date.now
+    },
+    category: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Category",
+        required: true
     }
 })
 module.exports = mongoose.model('Post', postSchema);

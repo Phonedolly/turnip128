@@ -29,10 +29,11 @@ const app = express();
 const redisClient = redis.createClient({
   host: process.env.REDIS_URL,
   port: 6379,
+  database: process.env.REDIS_DB_NUM,
   password: process.env.REDIS_PASSWORD
 });
 (async () => {
-  redisClient.connect();
+  await redisClient.connect();
 })();
 
 exports.redisClient = redisClient;
@@ -82,7 +83,7 @@ app.use("/api", api);
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'))
 })
-const PORT = 5000;
+const PORT = process.env.PORT;
 
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
