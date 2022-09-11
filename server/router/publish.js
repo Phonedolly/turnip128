@@ -29,7 +29,7 @@ const upload = multer({
       cb(null, { fieldName: file.fieldname });
     },
     key: function (req, file, cb) {
-      cb(null, getToday() + "/" + Date.now().toString() + '_' + req.body.filename)
+      cb(null, getToday() + "_" + "stardue128" + "/" + Date.now().toString() + '_' + req.body.filename)
     },
     contentType: multerS3.AUTO_CONTENT_TYPE,
 
