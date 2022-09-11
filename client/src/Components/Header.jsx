@@ -10,22 +10,10 @@ export default function Header(props) {
     <div className={location.pathname === "/" ? "header scroll" : "header"}>
       <div className="header-content">
         <Link to="/" className="header-link">
-          <motion.div
-            initial={{
-              y: window.innerHeight / 2,
-              opacity: 0,
-            }}
-            animate={{ y: "0", opacity: 1 }}
-            exit={{
-              y: -(window.innerHeight / 2),
-              opacity: 0,
-            }}
-          >
-            <Flex flexDirection="row" justifyContent="start" className="icon">
-              <div className="headerText">Stardue128</div>
-              <div className="underLine" />
-            </Flex>
-          </motion.div>
+          <Flex flexDirection="row" justifyContent="start" className="icon">
+            <div className="headerText">Stardue128</div>
+            <div className="underLine" />
+          </Flex>
         </Link>
         <div className="menu-icons">
           {/* <motion.button
