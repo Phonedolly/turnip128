@@ -17,6 +17,7 @@ export default function Curator() {
   const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
+    document.querySelector("title").innerHTML = "Stardue128";
     if (!fetched) {
       axios
         .get(
