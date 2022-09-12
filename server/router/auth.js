@@ -81,7 +81,7 @@ router.post('/login', async (req, res) => {
     process.env.REFRESH_TOKEN_SECRET,
     { expiresIn: '300m' }
   )
-  await redisClient.setEx(refreshToken, 1800000, req.body.id);
+  await redisClient.setEx(refreshToken, 1800, req.body.id);
   res.cookie('refreshToken', refreshToken, { httpOnly: true })
   res.json({ accessToken })
 })
