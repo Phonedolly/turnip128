@@ -42,11 +42,13 @@ export default function Art() {
     }
 
     async function setLoginInfo() {
-      if ((await onSilentRefresh()) && (await onGetAuth())) {
-        setLoggedIn("YES");
-      } else {
-        setLoggedIn("NO");
-      }
+      try {
+        if ((await onSilentRefresh()) && (await onGetAuth())) {
+          setLoggedIn("YES");
+        } else {
+          setLoggedIn("NO");
+        }
+      } catch (err) {}
     }
     getContent();
     setLoginInfo();

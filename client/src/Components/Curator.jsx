@@ -1,37 +1,46 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Flex from "@react-css/flex";
+import { useNavigate, useParams } from "react-router-dom";
 
 import "./Curator.scss";
 import { Card } from "./Card";
 import CommonButton from "./CommonButton";
 
 export default function Curator() {
+  const params = useParams();
+  const navigate = useNavigate();
   const [sitemap, setSitemap] = useState([]);
-  const [moreSitemapCount, setMoreSitemapCount] = useState(0);
+  const [moreSitemapCount, setMoreSitemapCount] = useState(
+    params.moreSitemapCount ? Number(params.moreSitemapCount) : 0
+  );
   const [canLoadMoreSitemap, setCanLoadMoreSitemap] = useState(true);
   const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
     if (!fetched) {
-      axios.get("/api/getSitemap").then((res) => {
-        console.log(res.data);
-        setSitemap(res.data.sitemap);
-        setCanLoadMoreSitemap(res.data.canLoadMoreSitemap);
-        setTimeout(() => {
-          setFetched(true);
-        }, 600);
-
-        const scrollY = sessionStorage.getItem("scrollY") ?? 0;
-        if (scrollY) {
+      axios
+        .get(
+          `/api/getSitemap/${
+            params.moreSitemapCount ? Number(params.moreSitemapCount) : 0
+          }`
+        )
+        .then((res) => {
+          setSitemap(res.data.sitemap);
+          setCanLoadMoreSitemap(res.data.canLoadMoreSitemap);
           setTimeout(() => {
-            window.scroll({
-              behavior: "smooth",
-              top: scrollY,
-            });
-          }, 700);
-        }
-      });
+            setFetched(true);
+          }, 600);
+
+          const scrollY = sessionStorage.getItem("scrollY") ?? 0;
+          if (scrollY) {
+            setTimeout(() => {
+              window.scroll({
+                behavior: "smooth",
+                top: scrollY,
+              });
+            }, 700);
+          }
+        });
     }
   }, [fetched]);
 
@@ -39,14 +48,15 @@ export default function Curator() {
     if (!fetched) {
       return;
     }
+    sessionStorage.removeItem("scrollY");
+    if (moreSitemapCount === 0) {
+      navigate(`/`);
+    } else {
+      navigate(`/${moreSitemapCount}`);
+    }
+
     window.scroll({
       top: 0,
-    });
-    axios.get(`/api/getSitemap/more/${moreSitemapCount}`).then((res) => {
-      console.log(res.data);
-      const newPosts = res.data.sitemap;
-      setSitemap(newPosts);
-      setCanLoadMoreSitemap(res.data.canLoadMoreSitemap);
     });
   }, [moreSitemapCount]);
 
