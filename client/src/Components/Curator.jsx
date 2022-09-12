@@ -80,7 +80,7 @@ export default function Curator() {
             );
           })}
         </div>
-        {(canLoadMoreSitemap || moreSitemapCount) && (
+        {!!(canLoadMoreSitemap || moreSitemapCount) && (
           <div className="buttom-navigator">
             {moreSitemapCount > 0 && (
               <CommonButton
@@ -90,7 +90,7 @@ export default function Curator() {
                 이전
               </CommonButton>
             )}
-            {canLoadMoreSitemap && (
+            {!!canLoadMoreSitemap && (
               <CommonButton
                 onClick={() => setMoreSitemapCount((prev) => prev + 1)}
                 style={{ marginTop: "2em" }}
