@@ -6,26 +6,31 @@
 }
 
 .art-hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "Spoqa Han Sans Neo";
   font-size: 1em;
-  margin-bottom: 3em;
-  height: 5rem;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  @media (min-width: 480px) {
+    font-size: 1.3em;
+  }
 
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-family: "Spoqa Han Sans Neo";
-    font-size: 2.4em;
-    height: 100%;
-    width: 100%;
-    color: black;
-    background-color: rgba(255, 255, 255, 0.3);
-    @media (prefers-color-scheme: dark) {
-      background-color: rgba(13, 17, 23, 0.8);
-    }
+  @media (min-width: 768px) {
+    font-size: 1.6em;
+  }
+
+  @media (min-width: 1024px) {
+  }
+  @media (min-width: 1200px) {
+  }
+  @media (min-width: 1850px) {
+  }
+  height: 100%;
+  width: 100%;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.3);
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(13, 17, 23, 0.8);
   }
 }
