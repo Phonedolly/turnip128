@@ -50,6 +50,7 @@ export default function Writer(props) {
     async function getMd() {
       await axios.get("/api/post/" + params.postURL).then(
         (res) => {
+          console.log(res.data);
           set_id(res.data._id);
           setTitle(res.data.title);
           setNewTitle(res.data.title);
@@ -103,15 +104,17 @@ export default function Writer(props) {
       const data = (await axios.get("/api/category/getCategories")).data
         .categories;
       setCategories(data);
-      setSelectedCategory(data[0]._id);
+      if (!props.isEdit) {
+        setSelectedCategory(data[0]._id);
+      }
     }
 
     setLoginInfo();
     getCategories();
-    if (params.postURL) {
+    if (props.isEdit) {
       getMd();
     }
-  }, [params.postURL]);
+  }, [params.postURL, props.isEdit]);
 
   const handleImageInput = async (e) => {
     const formData = new FormData();
@@ -318,6 +321,8 @@ export default function Writer(props) {
                 console.log(e.target.value);
                 setSelectedCategory(e.target.value);
               }}
+              defaultValue={selectedCategory}
+              key={selectedCategory}
             >
               {categories?.map((eachCategory) => (
                 <option key={eachCategory._id} value={eachCategory._id}>
