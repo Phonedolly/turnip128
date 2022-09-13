@@ -112,7 +112,7 @@ export default function Writer(props) {
     if (params.postURL) {
       getMd();
     }
-  }, [params.postURL]);
+  }, [params.postURL, categories]);
 
   const handleImageInput = async (e) => {
     const formData = new FormData();
