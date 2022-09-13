@@ -30,7 +30,7 @@ router.post('/updateCategories', async (req, res) => {
     console.log(req.body);
     req.body.categories.map(async (eachCategory, plus) => {
         await Category.updateOne({ _id: eachCategory._id }, {
-            index: categoryLength + plus
+            index: categoryLength + plus + 1
         })
     })
 
