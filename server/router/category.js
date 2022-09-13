@@ -11,6 +11,9 @@ router.get('/getCategories', async (req, res) => {
 })
 
 router.post('/createCategory', async (req, res) => {
+    if (!req.body.name) {
+        return res.status(500).send({ result: "Name is not supplied" })
+    }
     const isDuplicated = !!(await Category.findOne({ name: req.body.name }));
     if (isDuplicated) {
         return res.status(500).send({ result: "Duplicated Category Name!" })
