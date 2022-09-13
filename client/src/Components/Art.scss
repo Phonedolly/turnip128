@@ -7,30 +7,42 @@
 
 .art-hero {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-family: "Spoqa Han Sans Neo";
-  font-size: 1em;
-  @media (min-width: 480px) {
-    font-size: 1.3em;
-  }
-
-  @media (min-width: 768px) {
-    font-size: 1.6em;
-  }
-
-  @media (min-width: 1024px) {
-  }
-  @media (min-width: 1200px) {
-  }
-  @media (min-width: 1850px) {
-  }
-  height: 100%;
   width: 100%;
-  color: black;
-  background-color: rgba(255, 255, 255, 0.3);
-  @media (prefers-color-scheme: dark) {
-    background-color: rgba(13, 17, 23, 0.8);
+  font-size: 1em;
+  .art-hero-title {
+    margin-top: 0.5em;
+    margin-bottom: 0.25em;
+    font-size: 1.6em;
+    @media (min-width: 480px) {
+      font-size: 2em;
+    }
+    @media (min-width: 768px) {
+      font-size: 2.5em;
+    }
   }
+  font-family: "Spoqa Han Sans Neo";
+  .art-hero-date {
+    font-size: 1.1em;
+    margin-top: 0.25em;
+    margin-bottom: 1em;
+    @media (min-width: 480px) {
+      font-size: 1.2em;
+    }
+
+    @media (min-width: 768px) {
+      font-size: 1.3em;
+    }
+  }
+}
+
+.edit-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
 }

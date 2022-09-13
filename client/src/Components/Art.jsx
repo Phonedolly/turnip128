@@ -17,6 +17,7 @@ export default function Art() {
   const [md, setMd] = useState(null);
   const [bgImageURL, setBgImageURL] = useState("");
   const [title, setTitle] = useState("");
+  const [date, setDate] = useState("");
   const params = useParams();
   const navigate = useNavigate();
 
@@ -28,6 +29,8 @@ export default function Art() {
             setBgImageURL(res.data.thumbnailURL);
             setTitle(res.data.title);
             setMd(res.data.content);
+            console.log(res.data);
+            setDate(res.data.createdAt.split("T")[0]);
             setTimeout(() => {
               window.scroll({ top: 0 });
             }, 100);
@@ -42,13 +45,21 @@ export default function Art() {
     }
 
     async function setLoginInfo() {
-      try {
-        if ((await onSilentRefresh()) && (await onGetAuth())) {
+      await onSilentRefresh().then(
+        () => {},
+        () => {
+          setLoggedIn("NO");
+          return;
+        }
+      );
+      onGetAuth().then(
+        () => {
           setLoggedIn("YES");
-        } else {
+        },
+        () => {
           setLoggedIn("NO");
         }
-      } catch (err) {}
+      );
     }
     getContent();
     setLoginInfo();
@@ -67,19 +78,23 @@ export default function Art() {
         >
           <div className="common-container">
             <div className="art-hero">
-              <h1>{title}</h1>
+              <h1 className="art-hero-title">{title}</h1>
+              <p className="art-hero-date">{date}</p>
             </div>
             <Markdown md={md} />
+            {isLoggedIn === "YES" && (
+              <div className="edit-button-container">
+                <CommonButton
+                  onClick={() => {
+                    navigate("/post/" + params.postURL + "/edit");
+                  }}
+                  className="art-edit-button common-button"
+                >
+                  수정하기
+                </CommonButton>
+              </div>
+            )}
           </div>
-          {isLoggedIn === "YES" && (
-            <CommonButton
-              onClick={() => {
-                navigate("/post/" + params.postURL + "/edit");
-              }}
-            >
-              수정하기
-            </CommonButton>
-          )}
         </motion.div>
       </>
     );
