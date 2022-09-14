@@ -43,7 +43,7 @@ export default function Curator() {
           }
         });
     }
-  }, [fetched]);
+  }, [fetched, params.moreSitemapCount]);
 
   useEffect(() => {
     if (!fetched) {
