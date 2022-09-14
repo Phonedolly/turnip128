@@ -45,21 +45,19 @@ export default function Curator() {
     }
   }, [fetched, params.moreSitemapCount]);
 
-  useEffect(() => {
-    if (!fetched) {
-      return;
-    }
+  const handleGoToMoreSitemap = (offset) => {
+    const goToOffset = Number(params.moreSitemapCount ?? 0) + offset;
     sessionStorage.removeItem("scrollY");
-    if (moreSitemapCount === 0) {
+    if (goToOffset === 0) {
       navigate(`/`);
     } else {
-      navigate(`/${moreSitemapCount}`);
+      navigate(`/${goToOffset}`);
     }
 
     window.scroll({
       top: 0,
     });
-  }, [fetched, navigate, moreSitemapCount]);
+  };
 
   /* Scroll Restoration */
   /* Source: https://stackoverflow.com/questions/71292957/react-router-v6-preserve-scroll-position */
@@ -96,14 +94,19 @@ export default function Curator() {
             {moreSitemapCount > 0 && (
               <CommonButton
                 style={{ marginTop: "2em" }}
-                onClick={() => setMoreSitemapCount((prev) => prev - 1)}
+                onClick={() => {
+                  setMoreSitemapCount((prev) => prev - 1);
+                  handleGoToMoreSitemap(-1);
+                }}
               >
                 이전
               </CommonButton>
             )}
             {!!canLoadMoreSitemap && (
               <CommonButton
-                onClick={() => setMoreSitemapCount((prev) => prev + 1)}
+                onClick={() => {
+                  handleGoToMoreSitemap(1);
+                }}
                 style={{ marginTop: "2em" }}
               >
                 다음
