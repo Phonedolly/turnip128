@@ -59,7 +59,7 @@ export default function Curator() {
     window.scroll({
       top: 0,
     });
-  }, [moreSitemapCount]);
+  }, [fetched, navigate, moreSitemapCount]);
 
   /* Scroll Restoration */
   /* Source: https://stackoverflow.com/questions/71292957/react-router-v6-preserve-scroll-position */
