@@ -11,6 +11,7 @@ const sitemapCacheUpdator = require('../tools/sitemapCacheUpdator');
 const checkCanLoadMore = require('../tools/checkCanLoadMore');
 
 const Post = require('../schemas/post');
+const Category = require('../schemas/category');
 
 
 router.use('/auth', auth)
@@ -21,7 +22,7 @@ router.get('/', (req, res) => {
   res.send({ test: 'hi' })
 });
 
-router.get('/getSitemap/:moreIndex', async (req, res) => {
+router.get('/getRecentSitemap/:moreIndex', async (req, res) => {
   const moreIndex = req.params.moreIndex ?? 0;
   if (moreIndex === 0) {
     /* redis에서 캐시가 있는지 확인 */
@@ -67,6 +68,20 @@ router.get('/getSitemap/:moreIndex', async (req, res) => {
       return res.status(500).send();
     })
 });
+
+router.post('/getCategorySitemap', async (req, res) => {
+  const moreIndex = req.body.moreIndex ?? 0;
+  const categoryName = req.body.categoryName;
+  const categoryId = (await Category.findOne({ "name": categoryName }))._id.toString();
+
+  const categorySitemap = (await Post
+    .find({ category: { _id: categoryId } })
+    .sort({ "_id": -1 })
+    .skip(20 * moreIndex)
+    .limit(20)
+  )
+  res.send({ sitemap: categorySitemap });
+})
 
 
 router.post('/search', async (req, res) => {
