@@ -22,7 +22,7 @@ export default function Curator(props) {
     if (!fetched) {
       if (props.mode === "recent-navigator") {
         axios
-          .get(`/api/getRecentSitemaps/${Number(params.moreIndex) ?? 0}`)
+          .get(`/api/getRecentSitemap/${Number(params.moreIndex) ?? 0}`)
           .then((res) => {
             console.log(res);
 
