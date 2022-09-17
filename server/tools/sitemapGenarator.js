@@ -36,7 +36,7 @@ const runner = async () => {
     if (process.env.NODE_ENV === 'production'
       && fs.existsSync(path.join(__dirname, `../../client/build/sitemap${i}.txt`))
       && sitemapUpdated) {
-      axios.get(`https://www.google.com/ping?sitemap=https://stardue64.com/sitemap${i}.txt`);
+      axios.get(`https://www.google.com/ping?sitemap=${process.env.WEBSITE_URL}/sitemap${i}.txt`);
       console.log(`send sitemap${i} update ping to google`)
     }
   }
