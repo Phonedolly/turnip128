@@ -24,16 +24,12 @@ export default function Curator(props) {
         axios
           .get(`/api/getRecentSitemap/${Number(params.moreIndex) ?? 0}`)
           .then((res) => {
-            console.log(res);
-
             setData(res.data);
           });
       } else if (props.mode === "category-navigator") {
         axios
           .post(`/api/getCategorySitemap`,{categoryName: params.categoryName, moreIndex: params.moreIndex})
           .then((res) => {
-            console.log(res.data);
-
             setData(res.data);
           });
       }

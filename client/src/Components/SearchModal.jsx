@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import CommonInput from "./CommonInput";
 
-import "./SearchModal.scss";
+import "./CommonModal.scss";
 
 export default function SearchModal({ isModalOpen, closeModal }) {
   const [inputText, setInputText] = useState("");

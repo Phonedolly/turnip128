@@ -1,0 +1,29 @@
+.modal {
+}
+
+.category-item {
+    display: flex;
+    flex-direction: row;
+    // background-color: rgba(0,0,0,0);
+    border-radius: 10px;
+    padding: 0.5em 1em;
+    margin: 1.1em 1.2em;
+    list-style: none;
+    font-weight: bold;
+    align-items: center;
+  
+    cursor: pointer;
+  p {
+    font-size: 1.3em;
+    text-align: center;
+    padding-left: 3.5em;
+    padding-right: 3.5em;
+  }
+
+  img {
+    height: 4em;
+    width: 10em;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}

@@ -12,6 +12,11 @@ const categorySchema = new Schema({
         required: true,
         unique: true,
     },
+    thumbnailURL: {
+        type: String,
+        required: true,
+        unique: false,
+    },
     createdAt: {
         type: Date,
         default: Date.now

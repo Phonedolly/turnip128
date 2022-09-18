@@ -13,7 +13,7 @@
     background-color: rgba(13, 17, 23, 0.8);
   }
 
-  font-size: 1.7em;
+  font-size: 1.4em;
 
   @media (min-width: 480px) {
     font-size: 2em;
@@ -39,6 +39,7 @@
     justify-content: space-between;
     align-items: center;
     width: 90vw;
+    font-family: "Spoqa Han Sans Neo";
 
     @media (min-width: 480px) {
       font-size: 0.9em;
@@ -64,7 +65,6 @@
       // margin: 0.5em auto;
 
       .headerText {
-        font-family: "Spoqa Han Sans Neo";
         font-weight: bold;
         color: black;
         @media (prefers-color-scheme: dark) {
@@ -77,44 +77,111 @@
         background-color: #7663f2;
       }
     }
-    .menu-icons {
-    }
-    .menu-icon {
-      height: 2.5em;
-      width: 2.5em;
-      border: none;
-      // margin: 1em;
-      background-size: cover;
-      background-color: transparent;
-      background-repeat: no-repeat;
-      cursor: pointer;
-      /* image credit:
-      https://fonts.google.com/icons?icon.query=search&icon.set=Material+Icons
-      */
-      background-image: url("../Images/search_black_24dp.svg");
-      @media (prefers-color-scheme: dark) {
-        background-image: url("../Images/search_white_24dp.svg");
-      }
-    }
+    .menu {
+      display: flex;
+      flex-direction: row;
+      align-self: center;
 
-    .info-icon {
-      /* image credit:
-      https://fonts.google.com/icons?icon.query=search&icon.set=Material+Icons
-      */
-      background-image: url("../Images/info_black_24dp.svg");
-      @media (prefers-color-scheme: dark) {
-        background-image: url("../Images/info_white_24dp.svg");
+      .menu-categories-explicitly {
+        display: none;
+        @media (min-width: 1024px) {
+          display: flex;
+        }
+        flex-direction: row;
+        .menu-category {
+          font-size: 0.65em;
+          font-weight: bold;
+          align-self: center;
+          margin: auto 0.5em;
+
+          @media (min-width: 480px) {
+            margin: auto 1em;
+          }
+
+          cursor: pointer;
+          .menu-category-link {
+            text-decoration-line: none;
+            color: black;
+            @media (prefers-color-scheme: dark) {
+              color: white;
+            }
+          }
+        }
+        .menu-category:last-child {
+          margin: auto 1em auto 0.5em;
+          @media (min-width: 480px) {
+            margin: auto 2em auto 1em;
+          }
+        }
+      }
+
+      .menu-icons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .category-icon {
+
+          display: inline-block;
+          @media (min-width: 1024px) {
+            display: none;
+          }
+          /* image credit:
+          https://fonts.google.com/icons?icon.query=menu&icon.set=Material+Icons
+          */
+          background-image: url("../Images/menu_black_24dp.svg");
+          @media (prefers-color-scheme: dark) {
+            background-image: url("../Images/menu_white_24dp.svg");
+          }
+        }
+
+        .info-icon {
+          /* image credit:
+          https://fonts.google.com/icons?icon.query=search&icon.set=Material+Icons
+          */
+          background-image: url("../Images/info_black_24dp.svg");
+          @media (prefers-color-scheme: dark) {
+            background-image: url("../Images/info_white_24dp.svg");
+          }
+        }
+        .search-icon {
+          /* image credit:
+          https://fonts.google.com/icons?icon.query=search&icon.set=Material+Icons
+          */
+          background-image: url("../Images/search_black_24dp.svg");
+          @media (prefers-color-scheme: dark) {
+            background-image: url("../Images/search_white_24dp.svg");
+          }
+        }
       }
     }
-    .search-icon {
-      /* image credit:
-      https://fonts.google.com/icons?icon.query=search&icon.set=Material+Icons
-      */
-      background-image: url("../Images/search_black_24dp.svg");
-      @media (prefers-color-scheme: dark) {
-        background-image: url("../Images/search_white_24dp.svg");
-      }
-    }
+  }
+}
+
+.menu-icon {
+  height: 2em;
+  width: 2em;
+  margin-left:0.5em;
+  margin-right: 0.5em;
+  @media (min-width: 480px) {
+    height: 2.5em;
+    width: 2.5em;
+    margin-left: 1em;
+  margin-right: 1em;
+  }
+  border: none;
+  
+  // margin: 1em;
+  background-size: cover;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  /* image credit:
+  https://fonts.google.com/icons?icon.query=search&icon.set=Material+Icons
+  */
+  background-image: url("../Images/search_black_24dp.svg");
+  @media (prefers-color-scheme: dark) {
+    background-image: url("../Images/search_white_24dp.svg");
   }
 }
 

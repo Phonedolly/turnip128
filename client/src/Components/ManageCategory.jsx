@@ -8,6 +8,7 @@ import "./ManageCategory.scss";
 export default function ManageCategory(props) {
   const [categories, setCategories] = useState([]);
   const [inputCategoryName, setInputCategoryName] = useState("");
+  const [thumbnailImage, setThumbnailImage] = useState({});
 
   /* 카테고리를 받아오는 useEffect() */
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function ManageCategory(props) {
     await axios
       .post("/api/category/createCategory", {
         name: inputCategoryName,
+        thumbnailURL: thumbnailImage.imageLocation
       })
       .then(
         (res) => {
@@ -44,6 +46,27 @@ export default function ManageCategory(props) {
         },
         (err) => {
           alert("에러가 발생하였습니다");
+        }
+      );
+  };
+
+  const handleImageInput = async (e) => {
+    const formData = new FormData();
+    formData.append("filename", e.target.files[0].name);
+    formData.append("img", e.target.files[0]);
+
+    axios
+      .post("/api/category/uploadImage", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(
+        (res) => {
+          setThumbnailImage(res.data);
+        },
+        (err) => {
+          alert("이미지 업로드 실패");
         }
       );
   };
@@ -98,8 +121,13 @@ export default function ManageCategory(props) {
     <>
       <div className="manage-category-container">
         <div className="manage-category-upper">
-          <p>드래그해서 카테고리 순서를 조정하세요</p>
           <div className="create-category-resource">
+            <input type="file" accept="image/*" onChange={handleImageInput} />
+            <img
+              src={thumbnailImage.imageLocation}
+              className="uploaded-category-thumbnail"
+              alt={thumbnailImage.imageLocation}
+            />
             <CommonInput
               onChange={(e) => {
                 setInputCategoryName(e.target.value);
@@ -113,7 +141,7 @@ export default function ManageCategory(props) {
             </button>
           </div>
         </div>
-
+        <p>드래그해서 카테고리 순서를 조정하세요</p>
         <DragDropContext onDragEnd={handleDragChange}>
           <Droppable droppableId="categories">
             {(provided) => (
@@ -135,6 +163,10 @@ export default function ManageCategory(props) {
                         {...provided.dragHandleProps}
                         {...provided.draggableProps}
                       >
+                        <img
+                          src={eachCategory.thumbnailURL}
+                          className="category-item-thumbnail"
+                        />
                         {eachCategory.name}
                         <button
                           className="common-button delete-category-button"

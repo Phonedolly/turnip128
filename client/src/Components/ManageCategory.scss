@@ -19,10 +19,23 @@
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
+  .uploaded-category-thumbnail {
+    width: 7em;
+    height: 4em;
+    object-fit: cover;
+    border-radius: 10px;
+  }
 }
 
 .category-item {
   justify-content: space-between;
+}
+
+.category-item-thumbnail {
+  width: 7em;
+  height: 4em;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 .categories {

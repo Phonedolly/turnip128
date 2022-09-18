@@ -4,6 +4,12 @@ const router = express.Router();
 const Post = require('../schemas/post');
 const Category = require('../schemas/category');
 
+const imageUploader = require('./middlewares').imageUploader;
+
+router.post('/uploadImage', imageUploader.single('img'), (req, res) => {
+    res.json({ imageLocation: req.file.location, imageName: req.file.key })
+})
+
 router.get('/getCategories', async (req, res) => {
     const categories = await Category.find({}).sort({ index: 1 })
 
@@ -14,13 +20,15 @@ router.post('/createCategory', async (req, res) => {
     if (!req.body.name) {
         return res.status(500).send({ result: "Name is not supplied" })
     }
+    if (!req.body.thumbnailURL) {
+        return res.status(500).send({ result: "thumbnailURL is not supplied" })
+    }
     const isDuplicated = !!(await Category.findOne({ name: req.body.name }));
     if (isDuplicated) {
         return res.status(500).send({ result: "Duplicated Category Name!" })
     }
     const categoryLength = (await Category.find({})).length;
-    const result = await Category.create({ name: req.body.name, index: categoryLength });
-
+    const result = await Category.create({ name: req.body.name, thumbnailURL: req.body.thumbnailURL, index: categoryLength });
     res.send({ successfullyCreateCategory: true });
 })
 
