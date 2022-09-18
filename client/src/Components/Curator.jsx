@@ -8,7 +8,6 @@ import CommonButton from "./CommonButton";
 
 export default function Curator(props) {
   const params = useParams();
-  console.log(params);
   const navigate = useNavigate();
   const [sitemap, setSitemap] = useState([]);
   const [moreIndex, setmoreIndex] = useState(

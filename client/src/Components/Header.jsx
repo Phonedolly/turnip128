@@ -43,7 +43,6 @@ export default function Header(props) {
 
   useLayoutEffect(() => {
     axios.get("/api/category/getCategories").then((res) => {
-      console.log(res.data.categories);
       setCategories(res.data.categories);
 
       const implicit = res.data.categories.reduce((prev, cur) => {
