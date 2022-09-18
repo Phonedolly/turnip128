@@ -21,13 +21,16 @@ export default function Curator(props) {
     if (!fetched) {
       if (props.mode === "recent-navigator") {
         axios
-          .get(`/api/getRecentSitemap/${Number(params.moreIndex) ?? 0}`)
+          .get(`/api/getRecentSitemap/${Number(params.moreIndex) || 0}`)
           .then((res) => {
             setData(res.data);
           });
       } else if (props.mode === "category-navigator") {
         axios
-          .post(`/api/getCategorySitemap`,{categoryName: params.categoryName, moreIndex: params.moreIndex})
+          .post(`/api/getCategorySitemap`, {
+            categoryName: params.categoryName,
+            moreIndex: params.moreIndex,
+          })
           .then((res) => {
             setData(res.data);
           });
@@ -35,7 +38,7 @@ export default function Curator(props) {
     }
   }, [fetched, params.moreIndex, props.mode]);
 
-  const setData=(data)=>{
+  const setData = (data) => {
     setSitemap(data.sitemap);
     setCanLoadMoreSitemap(data.canLoadMoreSitemap);
     setTimeout(() => {
@@ -43,10 +46,10 @@ export default function Curator(props) {
     }, 600);
 
     scroll();
-  }
+  };
 
   const scroll = () => {
-    const scrollY = sessionStorage.getItem("scrollY") ?? 0;
+    const scrollY = sessionStorage.getItem("scrollY") || 0;
     if (scrollY) {
       setTimeout(() => {
         window.scroll({
@@ -58,7 +61,7 @@ export default function Curator(props) {
   };
 
   const handleGoToMoreIndex = (offset) => {
-    const goToOffset = Number(params.moreIndex ?? 0) + offset;
+    const goToOffset = Number(params.moreIndex || 0) + offset;
     sessionStorage.removeItem("scrollY");
     if (goToOffset === 0) {
       navigate(`/`);

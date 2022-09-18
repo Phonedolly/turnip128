@@ -31,7 +31,7 @@ const runner = () => {
           })
 
       /* 더 로드할 수 있는가를 조사 */
-      redisClient.set("sitemapCacheCanLoadMore", (await checkCanLoadMore(0)).toString())
+      redisClient.set("sitemapCacheCanLoadMore", (await checkCanLoadMore({}, 0)).toString())
 
       if (process.env.NODE_ENV === 'dev') {
         console.log(now() + "sitemapCache updated");

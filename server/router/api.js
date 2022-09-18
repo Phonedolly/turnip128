@@ -32,7 +32,7 @@ router.get('/getRecentSitemap/:moreIndex', async (req, res) => {
       if (!canLoadFirstMoreSitemap) {
         sitemapCacheUpdator(true)
       }
-      redisClient.get("sitemapCacheCanLoadMore").then((res) => console.log(res))
+      redisClient.get("sitemapCacheCanLoadMore").then((result) => console.log(result))
       if (cache) {
         if (process.env.NODE_ENV === 'dev') {
           console.log("Use Cache to getSitemap");
@@ -56,7 +56,7 @@ router.get('/getRecentSitemap/:moreIndex', async (req, res) => {
   Post.find({}).sort({ "_id": -1 }).limit(20).skip(20 * moreIndex).limit(20)
     .then(async (result) => {
       /* 포스트를 20개 외에 더 로드할 수 있는지 확인 */
-      const canLoadMoreSitemap = await checkCanLoadMore(moreIndex);
+      const canLoadMoreSitemap = await checkCanLoadMore({}, moreIndex);
 
       /* UTC(mongodb) to local time */
       timeAlignedResult = postTimeAlignmentor(result);
@@ -80,7 +80,8 @@ router.post('/getCategorySitemap', async (req, res) => {
     .skip(20 * moreIndex)
     .limit(20)
   )
-  res.send({ sitemap: categorySitemap });
+  const canLoadMoreSitemap = await checkCanLoadMore({ category: { _id: categoryId } }, moreIndex);
+  res.send({ sitemap: categorySitemap, canLoadMoreSitemap });
 })
 
 

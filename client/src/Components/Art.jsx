@@ -29,7 +29,6 @@ export default function Art() {
             setBgImageURL(res.data.thumbnailURL);
             setTitle(res.data.title);
             setMd(res.data.content);
-            console.log(res.data);
             setDate(res.data.createdAt.split("T")[0]);
             setTimeout(() => {
               window.scroll({ top: 0 });
