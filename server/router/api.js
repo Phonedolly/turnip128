@@ -12,6 +12,7 @@ const checkCanLoadMore = require('../tools/checkCanLoadMore');
 
 const Post = require('../schemas/post');
 const Category = require('../schemas/category');
+const { format, utcToZonedTime } = require('date-fns-tz');
 
 
 router.use('/auth', auth)
@@ -32,7 +33,7 @@ router.get('/getRecentSitemap/:moreIndex', async (req, res) => {
       if (!canLoadFirstMoreSitemap) {
         sitemapCacheUpdator(true)
       }
-      redisClient.get("sitemapCacheCanLoadMore").then((result) => console.log(result))
+      //redisClient.get("sitemapCacheCanLoadMore").then((result) => console.log(result))
       if (cache) {
         if (process.env.NODE_ENV === 'dev') {
           console.log("Use Cache to getSitemap");
@@ -80,8 +81,10 @@ router.post('/getCategorySitemap', async (req, res) => {
     .skip(20 * moreIndex)
     .limit(20)
   )
+
+  // TODO 중복 코드 제거하기
   const canLoadMoreSitemap = await checkCanLoadMore({ category: { _id: categoryId } }, moreIndex);
-  res.send({ sitemap: categorySitemap, canLoadMoreSitemap });
+  res.send({ sitemap: categorySitemap.map((eachPost) => ({ title: eachPost.title, thumbnailURL: eachPost.thumbnailURL ?? null, postURL: eachPost.postURL, postDate: format(utcToZonedTime(eachPost.createdAt), 'yyyy-MM-dd') })), canLoadMoreSitemap });
 })
 
 
