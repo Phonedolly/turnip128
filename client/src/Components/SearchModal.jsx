@@ -73,7 +73,7 @@ export default function SearchModal({ isModalOpen, closeModal }) {
                   <div className="search-result-list">
                     {searchContent.map((eachSearchItem) => (
                       <motion.li
-                        className="common-list-item search-item"
+                        className="common-list-item item"
                         onClick={() => {
                           setIsAvailable(false);
                           setInputText("");

@@ -16,16 +16,19 @@
 }
 
 .modal > section {
+  font-family: "Spoqa Han Sans Neo";
+  display: flex;
+  flex-direction: column;
   margin: auto 10em;
   max-width: var(--document-width-desktop);
 
-  background-color: var(--gray-200);
+  // background-color: var(--gray-200);
+  background-color: rgba(255, 255, 255, 0.7);
   box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 16px 0px;
-  border-radius: 10px;
-  padding: 2em;
+  border-radius: 13px;
   padding: 2em;
   @media (prefers-color-scheme: dark) {
-    background-color: #c9d1d9;
+    background-color: rgba(100, 100, 100, 0.3);
   }
 }
 
@@ -33,11 +36,20 @@
   font-family: "Spoqa Han Sans Neo";
   font-weight: bold;
   font-size: large;
+  margin-bottom: 1.3em;
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
 }
-.modal > section {
-  font-family: "Spoqa Han Sans Neo";
-  display: flex;
-  flex-direction: column;
+
+.modal > section > p {
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
+}
+
+.modal > section > input {
+  background-color: rgba(200, 200, 200, 0.3);
 }
 
 .modal > section > .search-result-list {
@@ -46,7 +58,8 @@
   overflow-x: hidden;
 }
 
-.search-item {
+.item {
+  background-color: rgba(255, 255, 255, 0.6);
   p {
     padding-left: 1em;
   }
@@ -54,7 +67,7 @@
     height: 4em;
     width: 7em;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 13px;
   }
 }
 
@@ -65,7 +78,7 @@
   font-size: 1em;
   align-self: flex-end;
   border: none;
-  border-radius: 10px;
+  border-radius: 13px;
 
   @media (prefers-color-scheme: dark) {
     background-color: #30363d;

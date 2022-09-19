@@ -18,7 +18,7 @@ export default function CategoryModal({ isModalOpen, closeModal, categories }) {
             initial={{
               opacity: 0,
             }}
-            animate={{ y: "0", opacity: 1 }}
+            animate={{ opacity: 1 }}
             exit={{
               opacity: 0,
             }}
@@ -44,7 +44,7 @@ export default function CategoryModal({ isModalOpen, closeModal, categories }) {
                       closeModal();
                       navigate(`/category/${eachCategory.name}`);
                     }}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 1.0 }}
                     key={uuidv4()}
                   >
@@ -54,13 +54,13 @@ export default function CategoryModal({ isModalOpen, closeModal, categories }) {
                 ))}
               </div>
 
-              <motion.button
+              {/* <motion.button
                 onClick={closeModal}
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 1.0 }}
               >
                 닫기
-              </motion.button>
+              </motion.button> */}
             </motion.section>
           </motion.div>
         )}
