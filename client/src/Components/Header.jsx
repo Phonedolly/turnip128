@@ -13,8 +13,6 @@ import CategoryModal from "./CategoryModal";
 export default function Header(props) {
   const location = useLocation();
   const [categories, setCategories] = useState([]);
-  const [implicitMenus, setImplicitMenus] = useState([]);
-  const [menuOpen, setMenuOpen] = useState(false);
   let headerClassName;
 
   const [isSearchModalOpen, setSearchModalOpen] = useState(false);
@@ -51,15 +49,6 @@ export default function Header(props) {
   useLayoutEffect(() => {
     axios.get("/api/category/getCategories").then((res) => {
       setCategories(res.data.categories);
-
-      const implicit = res.data.categories.reduce((prev, cur) => {
-        if (!cur.isShowExplicitly) {
-          return prev.concat(cur);
-        } else {
-          return prev;
-        }
-      }, []);
-      setImplicitMenus(implicit);
     });
   }, []);
 
