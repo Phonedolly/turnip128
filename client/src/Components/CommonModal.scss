@@ -19,7 +19,13 @@
   font-family: "Spoqa Han Sans Neo";
   display: flex;
   flex-direction: column;
-  margin: auto 10em;
+  margin: auto 0;
+  @media (min-width: 480px) {
+    margin: auto 2em;
+  }
+  @media (min-width: 768px) {
+    margin: auto 10em;
+  }
   max-width: var(--document-width-desktop);
 
   // background-color: var(--gray-200);

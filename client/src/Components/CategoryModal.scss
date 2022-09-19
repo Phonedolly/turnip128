@@ -1,19 +1,24 @@
 .modal > section {
   // box-shadow: none;
+  // margin: 0 3em;
 }
 .modal > section > .category-list {
   // max-height: 70vh;
   // overflow-y: scroll;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .category-item {
   display: flex;
   flex-direction: row;
-  background-color: rgba(255,255,255, 0.4);
+  background-color: rgba(255, 255, 255, 0.4);
   border-radius: 13px;
   // padding: auto 1.2em;
-  // margin: 1em 1.3em;
+  margin: 1em 1em;
+  width: 60vw;
+  @media (min-width: 480px) {
+    width: auto;
+  }
   list-style: none;
   font-weight: bold;
   align-items: center;
@@ -25,7 +30,6 @@
     @media (min-width: 480px) {
       padding-left: 3.5em;
       padding-right: 3.5em;
-      
     }
   }
 
@@ -33,6 +37,6 @@
     height: 2em;
     width: 2em;
     object-fit: cover;
-    color: rgba(255,0,0,0);
+    color: rgba(255, 0, 0, 0);
   }
 }
