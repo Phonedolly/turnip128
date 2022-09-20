@@ -19,7 +19,17 @@ export const Markdown = (props) => {
       components={{
         div: ({ className, children, ...props }) => {
           if (className === "math math-display") {
-            return <BlockMath>{children[0]}</BlockMath>;
+            return (
+              <div
+                style={{
+                  overflow: "hidden",
+                }}
+              >
+                <div style={{overflow:"auto"}}>
+                  <BlockMath>{children[0]}</BlockMath>
+                </div>
+              </div>
+            );
           } else {
             return (
               <div className={className} {...props}>
@@ -28,12 +38,15 @@ export const Markdown = (props) => {
             );
           }
         },
-        span:({className, children, ...props})=>{
-          if(className === "math math-inline"){
-            return <InlineMath>{children[0]}</InlineMath>
-          }
-          else{
-            return<span className={className} {...props}>{children}</span>
+        span: ({ className, children, ...props }) => {
+          if (className === "math math-inline") {
+            return <InlineMath>{children[0]}</InlineMath>;
+          } else {
+            return (
+              <span className={className} {...props}>
+                {children}
+              </span>
+            );
           }
         },
         code({ inline, className, children, ...props }) {
