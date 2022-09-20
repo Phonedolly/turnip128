@@ -1,4 +1,7 @@
 import ReactMarkDown from "react-markdown";
+import RemarkMathPlugin from "remark-math";
+import { BlockMath, InlineMath } from "react-katex";
+import "katex/dist/katex.min.css";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import SyntaxHighlighter from "react-syntax-highlighter";
@@ -11,9 +14,28 @@ export const Markdown = (props) => {
     <ReactMarkDown
       className="markdown-body"
       children={props.md}
-      remarkPlugins={[remarkGfm]}
+      remarkPlugins={[remarkGfm, RemarkMathPlugin]}
       rehypePlugins={[rehypeRaw]}
       components={{
+        div: ({ className, children, ...props }) => {
+          if (className === "math math-display") {
+            return <BlockMath>{children[0]}</BlockMath>;
+          } else {
+            return (
+              <div className={className} {...props}>
+                {children}
+              </div>
+            );
+          }
+        },
+        span:({className, children, ...props})=>{
+          if(className === "math math-inline"){
+            return <InlineMath>{children[0]}</InlineMath>
+          }
+          else{
+            return<span className={className} {...props}>{children}</span>
+          }
+        },
         code({ inline, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || "");
           return !inline && match ? (
