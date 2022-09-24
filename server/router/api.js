@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/getRecentSitemap/:moreIndex', async (req, res) => {
-  const moreIndex = req.params.moreIndex ?? 0;
+  const moreIndex = Number(req.params.moreIndex) ?? 0;
   if (moreIndex === 0) {
     /* redis에서 캐시가 있는지 확인 */
     const cache = await redisClient.lRange('sitemapCache', 0, -1);
