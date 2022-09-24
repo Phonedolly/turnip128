@@ -29,12 +29,12 @@
   max-width: var(--document-width-desktop);
 
   // background-color: var(--gray-200);
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.9);
   box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 16px 0px;
   border-radius: 13px;
   padding: 2em;
   @media (prefers-color-scheme: dark) {
-    background-color: rgba(100, 100, 100, 0.3);
+    background-color: rgba(30, 30, 30, 0.8);
   }
 }
 
@@ -54,10 +54,6 @@
   }
 }
 
-.modal > section > input {
-  background-color: rgba(200, 200, 200, 0.3);
-}
-
 .modal > section > .search-result-list {
   max-height: 50vh;
   overflow-y: scroll;
@@ -65,7 +61,8 @@
 }
 
 .item {
-  background-color: rgba(255, 255, 255, 0.6);
+  // background-color: rgba(255, 255, 255, 0.6);
+
   p {
     padding-left: 1em;
   }
