@@ -43,7 +43,9 @@ router.get('/getRecentSitemap/:moreIndex', async (req, res) => {
           sitemap: cache.map((each) => {
             const eachParsed = JSON.parse(each)
             return Object.assign({}, { title: eachParsed.title, thumbnailURL: eachParsed.thumbnailURL ?? null, postURL: eachParsed.postURL, postDate: eachParsed.postDate })
-          }),
+          },
+          ),
+          canLoadMoreSitemap: canLoadFirstMoreSitemap
         })
       }
     }
