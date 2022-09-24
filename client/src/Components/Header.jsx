@@ -13,7 +13,7 @@ import CategoryModal from "./CategoryModal";
 export default function Header(props) {
   const location = useLocation();
   const [categories, setCategories] = useState([]);
-  let headerClassName;
+  const [headerClassName, setHeaderClassName] = useState("");
 
   const [isSearchModalOpen, setSearchModalOpen] = useState(false);
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
@@ -52,16 +52,22 @@ export default function Header(props) {
     });
   }, []);
 
-  if (location.pathname === "/") {
-    headerClassName = "header scroll";
-  } else if (
-    location.pathname.endsWith("/edit") &&
-    location.pathname.split("/").length === 4
-  ) {
-    headerClassName = "header not-visible-header";
-  } else {
-    headerClassName = "header";
-  }
+  useLayoutEffect(() => {
+    if (
+      location.pathname === "/" ||
+      location.pathname.startsWith("/category")
+    ) {
+      setHeaderClassName("header scroll");
+    } else if (
+      location.pathname.endsWith("/edit") &&
+      location.pathname.split("/").length === 4
+    ) {
+      setHeaderClassName("header not-visible-header");
+    } else {
+      setHeaderClassName("header");
+    }
+  }, []);
+
   return (
     <>
       <div className={headerClassName}>
