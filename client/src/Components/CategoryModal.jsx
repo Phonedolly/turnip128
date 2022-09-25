@@ -13,21 +13,8 @@ export default function CategoryModal({ isModalOpen, closeModal, categories }) {
     <>
       <AnimatePresence>
         {isModalOpen && (
-          <motion.div
+          <div
             className={isModalOpen ? "modal open" : "modal"}
-            initial={{
-              y: window.innerHeight / 2,
-              opacity: 0,
-            }}
-            animate={{
-              y: 0,
-              opacity: 1,
-              transition: { ease: "anticipate", duration: 0.7},
-            }}
-            exit={{
-              y: window.innerHeight / 2,
-              opacity: 0,
-            }}
             onClick={closeModal}
           >
             <motion.section
@@ -37,8 +24,9 @@ export default function CategoryModal({ isModalOpen, closeModal, categories }) {
                 y: window.innerHeight / 2,
               }}
               animate={{
-                y: "0",
+                y: 0,
                 opacity: 1,
+                transition: { ease: "anticipate", duration: 0.5 },
               }}
               exit={{
                 opacity: 0,
@@ -71,7 +59,7 @@ export default function CategoryModal({ isModalOpen, closeModal, categories }) {
                 닫기
               </motion.button> */}
             </motion.section>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>
