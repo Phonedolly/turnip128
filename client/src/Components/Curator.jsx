@@ -86,7 +86,6 @@ export default function Curator(props) {
   /* Source: https://stackoverflow.com/questions/71292957/react-router-v6-preserve-scroll-position */
   useEffect(() => {
     document.addEventListener("scroll", scrollSaver);
-    console.log(window.scrollY);
 
     return () => document.removeEventListener("scroll", scrollSaver);
   }, []);
