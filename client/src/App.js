@@ -8,6 +8,8 @@ import { Login } from "./Components/Login";
 import Writer from "./Components/Writer";
 import Manage from "./Components/Manage";
 
+import "./App.scss"
+
 function App() {
   const location = useLocation();
 
