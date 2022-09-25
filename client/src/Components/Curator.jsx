@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import scrollSaver from "../Util/ScrollSaver";
 
 import "./Curator.scss";
 import { Card } from "./Card";
 import CommonButton from "./CommonButton";
+import { useLayoutEffect } from "react";
 
 export default function Curator(props) {
   const params = useParams();
@@ -16,8 +18,11 @@ export default function Curator(props) {
   const [canLoadMoreSitemap, setCanLoadMoreSitemap] = useState(true);
   const [fetched, setFetched] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.querySelector("title").innerHTML = "Stardue128";
+  }, []);
+
+  useEffect(() => {
     if (!fetched) {
       if (props.mode === "recent-navigator") {
         axios
@@ -38,25 +43,26 @@ export default function Curator(props) {
     }
   }, [fetched, params.moreIndex, props.mode]);
 
+  useEffect(() => {
+    if (fetched) {
+      startScrollTools();
+    }
+  }, [fetched]);
+
   const setData = (data) => {
     setSitemap(data.sitemap);
-    setCanLoadMoreSitemap(data.canLoadMoreSitemap);
-    setTimeout(() => {
-      setFetched(true);
-    }, 600);
+    setFetched(true);
 
-    scroll();
+    setCanLoadMoreSitemap(data.canLoadMoreSitemap);
   };
 
-  const scroll = () => {
+  const startScrollTools = () => {
     const scrollY = sessionStorage.getItem("scrollY") || 0;
     if (scrollY) {
-      setTimeout(() => {
-        window.scroll({
-          behavior: "smooth",
-          top: scrollY,
-        });
-      }, 700);
+      window.scroll({
+        behavior: "smooth",
+        top: scrollY,
+      });
     }
   };
 
@@ -79,59 +85,52 @@ export default function Curator(props) {
   /* Scroll Restoration */
   /* Source: https://stackoverflow.com/questions/71292957/react-router-v6-preserve-scroll-position */
   useEffect(() => {
-    const save = () => {
-      setTimeout(() => {
-        sessionStorage.setItem("scrollY", window.scrollY);
-      }, 100);
-    };
+    document.addEventListener("scroll", scrollSaver);
+    console.log(window.scrollY);
 
-    document.addEventListener("scroll", save);
-
-    return () => document.removeEventListener("scroll", save);
+    return () => document.removeEventListener("scroll", scrollSaver);
   }, []);
 
-  if (fetched) {
-    return (
-      <>
-        <div className="curator-container">
-          {sitemap.map((each) => {
-            return (
-              <Card
-                title={each.title}
-                image={each.thumbnailURL}
-                url={"/post/" + each.postURL}
-                postDate={each.postDate}
-                key={each.title}
-              />
-            );
-          })}
+  return (
+    <>
+      <div className="curator-container">
+        {sitemap.map((each) => {
+          return (
+            <Card
+              title={each.title}
+              image={each.thumbnailURL}
+              url={"/post/" + each.postURL}
+              postDate={each.postDate}
+              key={each.title}
+            />
+          );
+        })}
+      </div>
+      {!!(canLoadMoreSitemap || moreIndex) && (
+        <div className="buttom-navigator">
+          {moreIndex > 0 && (
+            <CommonButton
+              style={{ marginTop: "2em" }}
+              onClick={() => {
+                setmoreIndex((prev) => prev - 1);
+                handleGoToMoreIndex(-1);
+              }}
+            >
+              이전
+            </CommonButton>
+          )}
+          {!!canLoadMoreSitemap && (
+            <CommonButton
+              onClick={() => {
+                handleGoToMoreIndex(1);
+              }}
+              style={{ marginTop: "2em" }}
+            >
+              다음
+            </CommonButton>
+          )}
         </div>
-        {!!(canLoadMoreSitemap || moreIndex) && (
-          <div className="buttom-navigator">
-            {moreIndex > 0 && (
-              <CommonButton
-                style={{ marginTop: "2em" }}
-                onClick={() => {
-                  setmoreIndex((prev) => prev - 1);
-                  handleGoToMoreIndex(-1);
-                }}
-              >
-                이전
-              </CommonButton>
-            )}
-            {!!canLoadMoreSitemap && (
-              <CommonButton
-                onClick={() => {
-                  handleGoToMoreIndex(1);
-                }}
-                style={{ marginTop: "2em" }}
-              >
-                다음
-              </CommonButton>
-            )}
-          </div>
-        )}
-      </>
-    );
-  }
+      )}
+    </>
+  );
 }

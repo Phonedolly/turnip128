@@ -7,16 +7,7 @@ export const Card = (props) => (
   <>
     <motion.div
       className="box"
-      initial={{
-        y: window.innerHeight / 2,
-        opacity: 0,
-      }}
-      animate={{ y: "0", opacity: 1 }}
-      exit={{
-        y: window.innerHeight / 2,
-        opacity: 0,
-      }}
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ scale: 1.02}}
     >
       <Flex column>
         <Link to={props.url}>

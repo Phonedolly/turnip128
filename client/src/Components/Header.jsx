@@ -19,7 +19,9 @@ export default function Header(props) {
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
 
   const openSearchModal = () => {
+    sessionStorage.setItem("scrollYWhenModal", window.scrollY);
     setSearchModalOpen(true);
+
     document.body.style.cssText = `
     position: fixed; 
     top: -${window.scrollY}px;
@@ -29,10 +31,12 @@ export default function Header(props) {
   const closeSearchModal = () => {
     setSearchModalOpen(false);
     document.body.style.cssText = "";
-    window.scrollTo(0, parseInt(window.scrollY || "0", 10) * -1);
+    console.log(sessionStorage.getItem("scrollYWhenModal"));
+    window.scrollTo(0, sessionStorage.getItem("scrollYWhenModal"));
   };
 
   const openCategoryModal = () => {
+    sessionStorage.setItem("scrollYWhenModal", window.scrollY);
     setCategoryModalOpen(true);
     document.body.style.cssText = `
     position: fixed; 
@@ -43,7 +47,7 @@ export default function Header(props) {
   const closeCategoryModal = () => {
     setCategoryModalOpen(false);
     document.body.style.cssText = "";
-    window.scrollTo(0, parseInt(window.scrollY || "0", 10) * -1);
+    window.scrollTo(0, sessionStorage.getItem("scrollYWhenModal"));
   };
 
   useLayoutEffect(() => {
@@ -91,7 +95,10 @@ export default function Header(props) {
                   <motion.div
                     className="menu-category"
                     key={uuidv4()}
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{
+                      transition: { ease: "linear", duration: 0.2 },
+                      scale: 1.2
+                    }}
                     whileTap={{ scale: 1.0 }}
                   >
                     <Link
