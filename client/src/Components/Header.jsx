@@ -13,6 +13,7 @@ import CategoryModal from "./CategoryModal";
 export default function Header(props) {
   const location = useLocation();
   const [categories, setCategories] = useState([]);
+  const [numsOfPosts, setNumsOfPosts] = useState([]);
   const [headerClassName, setHeaderClassName] = useState("");
 
   const [isSearchModalOpen, setSearchModalOpen] = useState(false);
@@ -57,6 +58,12 @@ export default function Header(props) {
   }, []);
 
   useLayoutEffect(() => {
+    axios.get("/api/category/getAllCategoryLength").then((res) => {
+      setNumsOfPosts(res.data);
+    });
+  }, []);
+
+  useLayoutEffect(() => {
     if (
       location.pathname === "/" ||
       location.pathname.startsWith("/category")
@@ -97,7 +104,7 @@ export default function Header(props) {
                     key={uuidv4()}
                     whileHover={{
                       transition: { ease: "linear", duration: 0.2 },
-                      scale: 1.2
+                      scale: 1.2,
                     }}
                     whileTap={{ scale: 1.0 }}
                   >
@@ -132,6 +139,7 @@ export default function Header(props) {
         isModalOpen={isCategoryModalOpen}
         closeModal={closeCategoryModal}
         categories={categories}
+        numsOfPosts={numsOfPosts}
       />
       <SearchModal
         isModalOpen={isSearchModalOpen}

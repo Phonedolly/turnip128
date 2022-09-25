@@ -6,7 +6,12 @@ import "./Common.scss";
 import "./CommonModal.scss";
 import "./CategoryModal.scss";
 
-export default function CategoryModal({ isModalOpen, closeModal, categories }) {
+export default function CategoryModal({
+  isModalOpen,
+  closeModal,
+  categories,
+  numsOfPosts,
+}) {
   const navigate = useNavigate();
 
   return (
@@ -18,6 +23,7 @@ export default function CategoryModal({ isModalOpen, closeModal, categories }) {
             onClick={closeModal}
           >
             <motion.section
+              className="category-modal"
               onClick={(e) => e.stopPropagation()}
               initial={{
                 opacity: 0,
@@ -31,22 +37,31 @@ export default function CategoryModal({ isModalOpen, closeModal, categories }) {
               exit={{
                 opacity: 0,
                 y: window.innerHeight / 2,
+                transition: { ease: "anticipate", duration: 0.5 },
               }}
             >
               <div className="category-list">
-                {categories.map((eachCategory) => (
+                {categories.map((eachCategory, index) => (
                   <motion.li
                     className="common-list-item category-item"
                     onClick={() => {
                       closeModal();
                       navigate(`/category/${eachCategory.name}`);
                     }}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 1.0 }}
                     key={uuidv4()}
+                    whileHover={{
+                      backgroundColor: "rgb(150, 150, 150, 0.7)",
+                      // "@media (prefers-color-scheme: dark)": {
+                      //   backgroundColor: "rgba(40, 40, 40, 0.7)",
+                      // },
+                      transition: { duration: 0.05 },
+                    }}
                   >
                     {/* <img src={eachCategory.thumbnailURL} /> */}
-                    <p>{eachCategory.name}</p>
+                    <p className="category-name">{eachCategory.name}</p>
+                    <p className="nums-of-posts">
+                      {numsOfPosts[index]}개 포스트
+                    </p>
                   </motion.li>
                 ))}
               </div>

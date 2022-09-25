@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import CommonInput from "./CommonInput";
 
 import "./CommonModal.scss";
+import "./SearchModal.scss"
 
 export default function SearchModal({ isModalOpen, closeModal }) {
   const [inputText, setInputText] = useState("");
@@ -47,6 +48,7 @@ export default function SearchModal({ isModalOpen, closeModal }) {
             }}
           >
             <motion.section
+              className="search-modal"
               layout
               onClick={(e) => e.stopPropagation()}
               initial={{
@@ -54,13 +56,14 @@ export default function SearchModal({ isModalOpen, closeModal }) {
                 y: window.innerHeight / 2,
               }}
               animate={{
-                y:0,
+                y: 0,
                 opacity: 1,
                 transition: { ease: "anticipate", duration: 0.5 },
               }}
               exit={{
                 opacity: 0,
                 y: window.innerHeight / 2,
+                transition: { ease: "anticipate", duration: 0.5 },
               }}
             >
               <header>원하는 제목이나 내용을 입력해보세요</header>

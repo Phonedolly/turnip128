@@ -71,4 +71,16 @@ router.post('/deleteCategory', async (req, res) => {
     }
 })
 
+router.get('/getAllCategoryLength', async (req, res) => {
+    const categories = await Category.find({})
+    console.log(categories);
+    const lengths = await  Promise.all(categories.map(async (eachCategory) => {
+        const value = (await Post.find({ category: { _id: eachCategory._id.toString() } })).length
+        return value;
+    }))
+    console.log("length", lengths);
+
+    res.send(lengths)
+})
+
 module.exports = router;

@@ -1,0 +1,22 @@
+.search-modal {
+  font-family: "Spoqa Han Sans Neo";
+  display: flex;
+  flex-direction: column;
+  margin: auto 0;
+
+  @media (min-width: 480px) {
+    margin: auto 2em;
+  }
+  @media (min-width: 768px) {
+    margin: auto 10em;
+  }
+  max-width: var(--document-width-desktop);
+  backdrop-filter: saturate(180%) blur(100px);
+  background-color: rgba(255, 255, 255, 0.6);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 16px 30px 4px;
+  border-radius: 13px;
+  padding: 2em;
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(30, 30, 30, 0.6);
+  }
+}
