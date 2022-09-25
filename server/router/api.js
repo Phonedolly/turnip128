@@ -92,7 +92,9 @@ router.post('/getCategorySitemap', async (req, res) => {
 
 router.post('/search', async (req, res) => {
   const query = req.body.query;
-
+  if (query === "") {
+    return res.send([]);
+  }
   const result = await Post
     .find({ $or: [{ title: new RegExp(query) }, { content: new RegExp(query) }] })
     .sort({ '_id': -1 })
@@ -102,18 +104,19 @@ router.post('/search', async (req, res) => {
 
 router.get('/post/:postURL', async (req, res) => {
   /* 캐시가 있는지 확인 */
-  const cache = await redisClient.get(req.params.postURL)
+  // const cache = await redisClient.get(encodeURIComponent(req.params.postURL))
 
-  if (cache) {
-    return res.send(JSON.parse(cache))
-  }
+  // if (cache) {
+  //   console.log("use cache to post");
+  //   return res.send(JSON.parse(cache))
+  // }
 
   Post.findOne({ postURL: req.params.postURL })
     .then((result) => {
       res.send(result)
 
       /* 보냈던 포스트를 캐싱 */
-      redisClient.set(req.params.postURL, JSON.stringify(result))
+      redisClient.set(encodeURIComponent(req.params.postURL), JSON.stringify(result))
     }, (error) => {
       console.error(error)
       res.status(500).send();
