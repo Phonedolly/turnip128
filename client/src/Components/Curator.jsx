@@ -101,6 +101,7 @@ export default function Curator(props) {
               url={"/post/" + each.postURL}
               postDate={each.postDate}
               key={each.title}
+              mode="curator"
             />
           );
         })}
