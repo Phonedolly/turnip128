@@ -17,7 +17,6 @@ import { Markdown } from "./Markdown";
 import CommonInput from "./CommonInput";
 
 export default function Writer(props) {
-  console.log(props);
   const [isLoggedIn, setLoggedIn] = useState("PENDING");
   const [_id, set_id] = useState("");
   const [title, setTitle] = useState("");
@@ -51,7 +50,6 @@ export default function Writer(props) {
     async function getMd() {
       await axios.get("/api/post/" + params.postURL).then(
         (res) => {
-          console.log(res.data);
           set_id(res.data._id);
           setTitle(res.data.title);
           setNewTitle(res.data.title);
@@ -121,9 +119,6 @@ export default function Writer(props) {
           mdContent: data.mdContent,
         }))
         .then(({ importTitle, mdContent, images }) => {
-          console.log(importTitle);
-          console.log(mdContent);
-          console.log(images);
           setTitle(() => importTitle);
           images.forEach((image, index) => {
             image.isThumb = index === 0 ? true : false;
@@ -199,7 +194,6 @@ export default function Writer(props) {
   };
 
   const handleSetTab = (e) => {
-    console.log(e.keyCode);
     if (e.keyCode === 9) {
       e.preventDefault();
       let val = e.target.value;
@@ -344,7 +338,6 @@ export default function Writer(props) {
             </button>
             <select
               onChange={(e) => {
-                console.log(e.target.value);
                 setSelectedCategory(e.target.value);
               }}
               defaultValue={selectedCategory}

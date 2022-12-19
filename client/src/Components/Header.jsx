@@ -32,7 +32,6 @@ export default function Header(props) {
   const closeSearchModal = () => {
     setSearchModalOpen(false);
     document.body.style.cssText = "";
-    console.log(sessionStorage.getItem("scrollYWhenModal"));
     window.scrollTo(0, sessionStorage.getItem("scrollYWhenModal"));
   };
 

@@ -38,7 +38,6 @@ export default function ManageCategory(props) {
       })
       .then(
         (res) => {
-          console.log(res.data);
           if (res.data.successfullyCreateCategory) {
             alert("카테고리를 생성하였습니다");
             getCategories();
@@ -75,16 +74,13 @@ export default function ManageCategory(props) {
     if (!result.destination) {
       return;
     }
-    console.log(result);
     const items = [...categories];
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-    console.log(items);
     const indexAlimentedItems = items.map((eachItem, alignedIndex) => ({
       ...eachItem,
       index: alignedIndex,
     }));
-    console.log(indexAlimentedItems);
     setCategories(() => indexAlimentedItems);
   };
 
