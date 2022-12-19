@@ -37,6 +37,7 @@ function App() {
           <Route path="/post/:postURL" element={<Art />}></Route>
           <Route path="/post/:postURL/edit" element={<Writer isEdit={true} />} />
           <Route path="/writer" element={<Writer />}></Route>
+          <Route path="/writer/import/:clubID/:articleNumber" element={<Writer isImport={true} />} />
           <Route path="/manage/*" element={<Manage />}></Route>
         </Routes>
         <Footer />

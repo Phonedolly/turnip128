@@ -5,7 +5,6 @@ import Flex from "@react-css/flex";
 import Nothing from "../Images/nothing.jpg";
 import styles from "./Card.module.scss"
 
-console.log(styles);
 export const Card = (props) => (
   <>
     <motion.div className={styles.box} whileHover={{ scale: 1.02 }}>
@@ -23,7 +22,7 @@ export const Card = (props) => (
         </Flex>
       ) : (
         <Flex column>
-          <a href={props.ogLink}>
+          <a href={props.ogLink} target="_blank">
             {props.ogThumbnail ? (
               <img
                 src={props.ogThumbnail ?? Nothing}

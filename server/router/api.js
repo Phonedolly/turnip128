@@ -1,6 +1,7 @@
 const express = require('express')
+const { nca2md } = require('nca2md');
 const router = express.Router();
-const { redisClient, now } = require('../server')
+const { redisClient, now, s3 } = require('../server')
 
 const auth = require('./auth');
 const createdPost = require('./publish');
@@ -122,5 +123,17 @@ router.get('/post/:postURL', async (req, res) => {
       res.status(500).send();
     })
 })
+
+router.get('/getDefaultImportClubID', (req, res) => {
+  res.send({ defaultImportClubID: process.env.DEFAULT_IMPORT_CLUB_ID });
+})
+
+router.post('/import', async (req, res) => {
+  const clubID = req.body.clubID;
+  const articleNumber = req.body.articleNumber;
+  const importResult = await nca2md(clubID, articleNumber, s3, process.env.S3_BUCKET, false)
+  res.send(importResult);
+})
+
 
 module.exports = router;

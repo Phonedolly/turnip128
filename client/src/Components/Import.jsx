@@ -1,20 +1,20 @@
 import axios from "axios";
+import { useLayoutEffect } from "react";
 import { useState } from "react";
-import "./Import.scss";
+import { useNavigate } from "react-router-dom";
+
+import "./Import.module.scss";
 
 export default function Import(props) {
-  const [progress, setProgress] = useState(false);
-  const handleSubmit = async () => {
-    setProgress(() => true);
-    await axios
-      .get(`https://cafe.naver.com/fx8300/973184`)
-    //   .then(({ data }) => data.result.article.contentHtml);
-    .then(({data})=>{
-        console.log(data);
-    })
-    setProgress(() => false);
-  };
+  const [clubID, setClubID] = useState(0);
+  const [articleNumber, setArticleNumber] = useState(0);
+  const navigate = useNavigate();
 
+  useLayoutEffect(()=>{
+    axios.get("/api/getDefaultImportClubID").then(({data})=>{
+      setClubID(data.defaultImportClubID);
+    })
+  },[])
   return (
     <>
       <div className="import-container">
@@ -23,15 +23,25 @@ export default function Import(props) {
           <input
             className="common-input url-input"
             type="text"
-            placeholder="링크 입력"
-            disabled={progress === true}
+            placeholder="clubID 입력"
+            value={clubID}
+            onChange={(e) => {
+              setClubID(e.target.value);
+            }}
+          />
+          <input
+            className="common-input url-input"
+            type="text"
+            placeholder="articleNumber 입력"
+            onChange={(e) => {
+              setArticleNumber(e.target.value);
+            }}
           />
           <button
-            onClick={(e) => {
-              handleSubmit(e.target.value);
+            onClick={() => {
+              navigate(`/writer/import/${clubID}/${articleNumber}`);
             }}
             className="common-button"
-            disabled={progress === true}
           >
             가져오기
           </button>

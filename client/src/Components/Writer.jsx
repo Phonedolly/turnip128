@@ -1,7 +1,7 @@
 import Flex from "@react-css/flex";
 import axios from "axios";
 import { nanoid } from "nanoid";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 import { useState } from "react";
 import { useNavigate, Navigate, useParams } from "react-router-dom";
@@ -17,6 +17,7 @@ import { Markdown } from "./Markdown";
 import CommonInput from "./CommonInput";
 
 export default function Writer(props) {
+  console.log(props);
   const [isLoggedIn, setLoggedIn] = useState("PENDING");
   const [_id, set_id] = useState("");
   const [title, setTitle] = useState("");
@@ -28,7 +29,7 @@ export default function Writer(props) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const navigate = useNavigate();
   const params = useParams();
-  useEffect(() => {
+  useLayoutEffect(() => {
     async function setLoginInfo() {
       await onSilentRefresh().then(
         () => {},
@@ -66,7 +67,6 @@ export default function Writer(props) {
               imageName: eachImage.imageName,
               isThumb: eachImage.imageLocation === res.data.thumbnailURL,
             };
-
             setImages((prevImages) => prevImages.concat(imageData));
           });
 
@@ -109,12 +109,38 @@ export default function Writer(props) {
       }
     }
 
+    async function importArticle() {
+      const naverArticle = await axios
+        .post("/api/import", {
+          clubID: params.clubID,
+          articleNumber: params.articleNumber,
+        })
+        .then(({ data }) => ({
+          importTitle: data.title,
+          images: data.images,
+          mdContent: data.mdContent,
+        }))
+        .then(({ importTitle, mdContent, images }) => {
+          console.log(importTitle);
+          console.log(mdContent);
+          console.log(images);
+          setTitle(() => importTitle);
+          images.forEach((image, index) => {
+            image.isThumb = index === 0 ? true : false;
+            setImages((prevImages) => prevImages.concat(image));
+          });
+          setMd(mdContent);
+        });
+    }
+
     setLoginInfo();
     getCategories();
     if (props.isEdit) {
       getMd();
+    } else if (props.isImport) {
+      importArticle();
     }
-  }, [params.postURL, props.isEdit]);
+  }, [params.postURL, props.isEdit, props.isImport, props.importURL]);
 
   const handleImageInput = async (e) => {
     const formData = new FormData();

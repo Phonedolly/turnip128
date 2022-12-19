@@ -14,7 +14,6 @@ import markdownStyles from "./GitHubMarkdownToMe.module.scss";
 import { Card } from "./Card";
 
 export const Markdown = (props) => {
-  console.log(markdownStyles)
   return (
     <ReactMarkDown
       className={markdownStyles.markdownBody}
@@ -24,15 +23,10 @@ export const Markdown = (props) => {
       components={{
         div: ({ className, children, ...props }) => {
           if (className === "image-viewer") {
-            console.log(children)
             return <div className={markdownStyles.imageViewer}>{children}</div>;
           } else if (className === "slider-viewer") {
             return (
               <div className={markdownStyles.sliderViewer}>{children}</div>
-            );
-          } else if (className === "picture-comment") {
-            return (
-              <div className={markdownStyles.pictureComment}>{children}</div>
             );
           } else if (className === "link-box") {
             return (
@@ -61,6 +55,21 @@ export const Markdown = (props) => {
               <div className={className} {...props}>
                 {children}
               </div>
+            );
+          }
+        },
+        p: ({ className, children, ...props }) => {
+          if (className === "picture-comment") {
+            return (
+              <p className={markdownStyles.pictureComment} {...props}>
+                {children}
+              </p>
+            );
+          } else {
+            return (
+              <p className={className} {...props}>
+                {children}
+              </p>
             );
           }
         },
@@ -97,7 +106,6 @@ export const Markdown = (props) => {
         /* Twitter Embed Support */
         /* https://stackoverflow.com/questions/66941072/how-to-parse-embeddable-links-from-markdown-and-render-custom-react-components */
         a: ({ inline, className, children, ...props }) => {
-          console.log(className);
           if (
             props.href.startsWith("https://twitter.com") &&
             className === "embed"
@@ -144,7 +152,7 @@ export const Markdown = (props) => {
             );
           } else {
             return (
-              <a {...props} inline={inline}>
+              <a className={className} {...props} inline={inline}>
                 {children}
               </a>
             ); // All other links
