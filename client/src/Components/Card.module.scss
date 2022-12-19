@@ -61,10 +61,11 @@
     font-family: "Spoqa Han Sans Neo";
     text-decoration-line: none;
     font-size: 1em;
+    line-height: 1.4em;
     color: black;
 
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1.7rem;
+    padding-right: 1.7rem;
 
     overflow: hidden;
     text-overflow: ellipsis;
@@ -93,8 +94,9 @@
   }
 
   .summary {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    font-size: 0.95em;
+    padding-left: 1.7rem;
+    padding-right: 1.7rem;
     word-break: 3;
   }
 
@@ -104,8 +106,8 @@
     font-size: 75em;
     font-weight: bold;
     color: #6f7378;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1.7rem;
+    padding-right: 1.7rem;
     @media (prefers-color-scheme: dark) {
       color: #6f7378;
     }

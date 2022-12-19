@@ -32,10 +32,10 @@ export const Markdown = (props) => {
             return (
               <Card
                 title={children[1].props.children[0]}
-                ogThumbnail={children[3].props.children[0]}
-                ogLinkSummary={children[5].props.children[0]}
-                ogLinkRepresentativeUrl={children[7].props.children[0]}
-                ogLink={children[9].props.children[0]}
+                ogLinkSummary={children[3].props.children[0]}
+                ogLinkRepresentativeUrl={children[5].props.children[0]}
+                ogLinkURL={children[7].props.children[0]}
+                ogThumbnail={children[9]?.props.children[0]}
               />
             );
           } else if (className === "math math-display") {

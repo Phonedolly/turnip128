@@ -22,7 +22,7 @@ export const Card = (props) => (
         </Flex>
       ) : (
         <Flex column>
-          <a href={props.ogLink} target="_blank">
+          <a href={props.ogLinkURL} target="_blank">
             {props.ogThumbnail ? (
               <img
                 src={props.ogThumbnail ?? Nothing}
