@@ -1085,3 +1085,16 @@
 .markdownBody ::-webkit-calendar-picker-indicator {
   filter: invert(50%);
 }
+
+.imageViewer {
+  padding: 1em;
+}
+.sliderViewer {
+  display: flex;
+  overflow-x: scroll;
+}
+.pictureComment {
+  text-align: center;
+  font-size: 0.8em;
+  margin: auto 2em 1em 2em;
+}

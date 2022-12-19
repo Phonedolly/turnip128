@@ -9,11 +9,12 @@ import { github } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 
 import youtubeStyles from "./Youtube.module.scss";
-import markdownStyles from "./GitHubMarkdownToMe.module.scss"
+import markdownStyles from "./GitHubMarkdownToMe.module.scss";
 
 import { Card } from "./Card";
 
 export const Markdown = (props) => {
+  console.log(markdownStyles)
   return (
     <ReactMarkDown
       className={markdownStyles.markdownBody}
@@ -22,20 +23,28 @@ export const Markdown = (props) => {
       rehypePlugins={[rehypeRaw]}
       components={{
         div: ({ className, children, ...props }) => {
-          if(className === "link-box") {
-            console.log(children);
-            console.log(children[1].props.children[0])
-            return(
-              <Card  
-              title={children[1].props.children[0]}
-              ogThumbnail={children[3].props.children[0]}
-              ogLinkSummary={children[5].props.children[0]}
-              ogLinkRepresentativeUrl={children[7].props.children[0]}
-              ogLink={children[9].props.children[0]}
+          if (className === "image-viewer") {
+            console.log(children)
+            return <div className={markdownStyles.imageViewer}>{children}</div>;
+          } else if (className === "slider-viewer") {
+            return (
+              <div className={markdownStyles.sliderViewer}>{children}</div>
+            );
+          } else if (className === "picture-comment") {
+            return (
+              <div className={markdownStyles.pictureComment}>{children}</div>
+            );
+          } else if (className === "link-box") {
+            return (
+              <Card
+                title={children[1].props.children[0]}
+                ogThumbnail={children[3].props.children[0]}
+                ogLinkSummary={children[5].props.children[0]}
+                ogLinkRepresentativeUrl={children[7].props.children[0]}
+                ogLink={children[9].props.children[0]}
               />
-            )
-          }
-          else if (className === "math math-display") {
+            );
+          } else if (className === "math math-display") {
             return (
               <div
                 style={{
