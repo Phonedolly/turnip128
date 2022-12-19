@@ -1,7 +1,7 @@
 .box {
   width: 100%;
   max-width: 30em;
-  margin: 1em auto;
+  margin: 0 auto;
   border-radius: 13px;
   background-color: var(--gray-200);
   box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 16px 0px;
@@ -12,7 +12,7 @@
 
   a,
   p {
-    text-decoration-color: black;
+    text-decoration-color: black !important;
     text-decoration: none !important;
   }
 
@@ -64,8 +64,8 @@
     line-height: 1.4em;
     color: black;
 
-    padding-left: 1.7rem;
-    padding-right: 1.7rem;
+    padding-left: 1.3rem;
+    padding-right: 1.3rem;
 
     overflow: hidden;
     text-overflow: ellipsis;
@@ -95,19 +95,20 @@
 
   .summary {
     font-size: 0.95em;
-    padding-left: 1.7rem;
-    padding-right: 1.7rem;
+    padding-left: 1.3rem;
+    padding-right: 1.3rem;
     word-break: 3;
+    color: black;
   }
 
   .postDate,
   .ogLinkRepresentativeUrl {
     font-family: "Spoqa Han Sans Neo";
-    font-size: 75em;
+    font-size: 0.75em;
     font-weight: bold;
     color: #6f7378;
-    padding-left: 1.7rem;
-    padding-right: 1.7rem;
+    padding-left: 1.3rem;
+    padding-right: 1.3rem;
     @media (prefers-color-scheme: dark) {
       color: #6f7378;
     }
@@ -126,4 +127,8 @@
     @media (min-width: 1850px) {
     }
   }
+}
+
+.forArticle {
+  margin: 1em auto;
 }
