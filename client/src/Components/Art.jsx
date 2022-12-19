@@ -9,7 +9,6 @@ import { Markdown } from "./Markdown";
 import { onGetAuth, onSilentRefresh } from "../Util/LoginTools";
 
 import "./Art.scss";
-import "./GitHubMarkdownToMe.scss";
 import CommonButton from "./CommonButton";
 import { useEffect } from "react";
 
