@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
+import { Link, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { onGetAuth, onSilentRefresh } from "../Util/LoginTools";
 import ManageCategory from "./ManageCategory";
 
 import "./Manage.scss";
+import Import from "./Import";
 
 export default function Manage(props) {
   const [isLoggedIn, setLoggedIn] = useState("PENDING");
@@ -43,22 +43,22 @@ export default function Manage(props) {
       <div className="common-container manage-container">
         <h1>Management</h1>
 
-        <motion.a
-          href="/manage"
-          className="manage-tab left"
-          whileHover={{ scale: 1.1 }}
-        >
+        <Link to="/manage" className="manage-tab left">
           기본 정보
-        </motion.a>
-        <motion.a href="/manage/category" className="manage-tab middle">
+        </Link>
+        <Link to="/manage/category" className="manage-tab middle">
           카테고리 설정
-        </motion.a>
-        <motion.a href="/manage/statistic" className="manage-tab right">
+        </Link>
+        <Link to="/manage/statistic" className="manage-tab middle">
           통계
-        </motion.a>
+        </Link>
+        <Link to="/manage/import" className="manage-tab right">
+          가져오기
+        </Link>
         <Routes>
           <Route path="/" element={<p>ㅇㅇㅇ</p>}></Route>
           <Route path="/category" element={<ManageCategory />}></Route>
+          <Route path="/import" element={<Import />}></Route>
         </Routes>
       </div>
     </>
