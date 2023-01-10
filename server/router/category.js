@@ -34,8 +34,7 @@ router.post('/createCategory', async (req, res) => {
 
 router.post('/updateCategories', async (req, res) => {
     /* 임시로 인덱스 변경 */
-    const categoryLength = (await Category.find({})).length;
-    console.log(req.body);
+    const categoryLength = (await Category.find({})).length;;
     req.body.categories.map(async (eachCategory, plus) => {
         await Category.updateOne({ _id: eachCategory._id }, {
             index: categoryLength + plus + 1
@@ -73,12 +72,10 @@ router.post('/deleteCategory', async (req, res) => {
 
 router.get('/getAllCategoryLength', async (req, res) => {
     const categories = await Category.find({})
-    console.log(categories);
     const lengths = await  Promise.all(categories.map(async (eachCategory) => {
         const value = (await Post.find({ category: { _id: eachCategory._id.toString() } })).length
         return value;
     }))
-    console.log("length", lengths);
 
     res.send(lengths)
 })
