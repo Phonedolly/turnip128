@@ -97,7 +97,7 @@ export default function Curator(props) {
           return (
             <Card
               title={each.title}
-              image={each.thumbnailURL}
+              thumbnail={each.thumbnailURL}
               url={"/post/" + each.postURL}
               postDate={each.postDate}
               key={each.title}
