@@ -13,14 +13,22 @@ import markdownStyles from "./GitHubMarkdownToMe.module.scss";
 
 import { Card } from "./Card";
 
-export const Markdown = (props) => {
+export const Markdown = (articleProps) => {
   return (
     <ReactMarkDown
       className={markdownStyles.markdownBody}
-      children={props.md}
+      children={articleProps.md}
       remarkPlugins={[remarkGfm, RemarkMathPlugin]}
       rehypePlugins={[rehypeRaw]}
       components={{
+        h1: ({ className, children, ...props }) => {
+          return (
+            <div className="art-hero">
+              <h1 className="art-hero-title" {...props}>{children}</h1>
+              <p className="art-hero-date">{articleProps.date}</p>
+            </div>
+          );
+        },
         div: ({ className, children, ...props }) => {
           if (className === "image-viewer") {
             return <div className={markdownStyles.imageViewer}>{children}</div>;

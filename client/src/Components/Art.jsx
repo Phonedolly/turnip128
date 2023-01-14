@@ -73,11 +73,8 @@ export default function Art() {
       <>
         <div>
           <div className="common-container">
-            <div className="art-hero">
-              <h1 className="art-hero-title">{title}</h1>
-              <p className="art-hero-date">{date}</p>
-            </div>
-            <Markdown md={md} />
+
+            <Markdown md={md} date={date} />
             {isLoggedIn === "YES" && (
               <div className="edit-button-container">
                 <CommonButton
